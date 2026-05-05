@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>oknoweb - {{ version.name }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="page-frame">
+    <div class="center mt-20">
+        <a href="{{ url_for('archive_page') }}"><button class="button button-small"> ← back </button></a>
+    </div>
+
+    <h1 class="center mt-20"> {{ version.name }} </h1>
+    
+    <div class="hover-outline box-padding mt-20">
+        <h2 class="meta-line"> Tag: {{ version.tag }} </h2>
+        <h2 class="meta-line"> Release Date: {{ version.releaseDate }} </h2>
+        <h2 class="meta-line"> Downloads: {{ version.downloads }} </h2>
+        
+        <div class="changelog">
+            <h3> Changelog: </h3>
+            <p class="changelog-text">{{ version.changelog }}</p>
+        </div>
+
+        <div class="center mt-30">
+            {% if has_windows %}
+                <a href="{{ url_for('download_windows', version_id=version.id) }}" download>
+                    <button class="button"> <span class="nf"> 󰖳 windows </span> </button>
+                </a>
+            {% endif %}
+
+            {% if has_linux %}
+                <a href="{{ url_for('download_linux', version_id=version.id) }}" download>
+                    <button class="button"> <span class="nf"> linux</span> </button>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

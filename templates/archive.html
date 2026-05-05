@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>oknoweb - archive</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="page-frame">
+    <div class="center mt-20">
+        <a href="{{ url_for('main_page') }}"><button class="button button-small"> ← back </button></a>
+    </div>
+
+    <h1 class="center underline my-20"> archive </h1>
+
+    <div class="hover-outline box-padding">
+        {% for tag, versions in grouped_versions.items() %}
+            <h2 class="center mb-10"> {{ tag }}s </h2>
+            {% for version in versions %}
+                <div class="center mb-10">
+                    <a href="{{ url_for('version_page', version_id=version.id) }}">
+                        <button class="button archive-version-button"> <span class="nf"> 󰉋 {{ version.name }} </span> </button>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>
