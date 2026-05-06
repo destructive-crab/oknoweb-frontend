@@ -27,13 +27,13 @@
 
         <div class="center mt-30">
             {% if has_windows %}
-                <a href="{{ url_for('download_windows', version_id=version.id) }}" download>
+                <a href="{{ version.downloadWindowsURL }}" download>
                     <button class="button"> <span class="nf"> 󰖳 windows </span> </button>
                 </a>
             {% endif %}
 
             {% if has_linux %}
-                <a href="{{ url_for('download_linux', version_id=version.id) }}" download>
+                <a href="{{ version.get('downloadLinuxURL') }}" download>
                     <button class="button"> <span class="nf"> linux</span> </button>
                 </a>
             {% endif %}
