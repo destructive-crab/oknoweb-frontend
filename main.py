@@ -169,6 +169,13 @@ def admin_approve(game_id):
     return redirect(url_for('admin_submit'))
 
 
+@app.route('/admin/reject/<int:game_id>', methods=['POST'])
+@login_required
+def admin_reject(game_id):
+    # reject game in db
+    return redirect(url_for('admin_submit'))
+
+
 if __name__ == '__main__':
     from waitress import serve
     serve(app, host="localhost", port=8080)

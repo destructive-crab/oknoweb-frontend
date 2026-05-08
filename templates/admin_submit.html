@@ -38,10 +38,15 @@
                 </h2>
             </div>
             
-            <div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
                 <form action="{{ url_for('admin_approve', game_id=game.id) }}" method="POST">
                     <button type="submit" class="button button-small" style="width: auto; min-width: 150px; font-size: 24px; padding: 10px 20px;"> 
                         <span class="nf">approve</span> 
+                    </button>
+                </form>
+                <form action="{{ url_for('admin_reject', game_id=game.id) }}" method="POST">
+                    <button type="submit" class="button button-small" style="width: auto; min-width: 150px; font-size: 24px; padding: 10px 20px; border-color: #8b0000; color: #8b0000;"> 
+                        <span class="nf">reject</span> 
                     </button>
                 </form>
             </div>
