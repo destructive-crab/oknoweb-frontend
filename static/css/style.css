@@ -3,15 +3,29 @@
     src: url('../fonts/0xproto.ttf') format('truetype');
     font-display: swap; /* Improves perceived performance */
 }
+
+@font-face {
+    font-family: MS Gothic; 
+    src: url('fonts/msgothic.ttf') format('truetype');
+}
+body {
+    font-family: MS Gothic;
+}
+
 div{
     text-align:justify;
     letter-spacing: 1px;
 }
 
+* {
+    font-family: "0xProto", monospace;
+}
+
 body {
-    font-family: '0xProto';
+    font-family: '0xProto', monospace;
     letter-spacing: 1px;
     margin: 0;
+    color: #000555;
     background-color: #ffffff;
 }
 
@@ -298,7 +312,7 @@ h1{
 
 .font {
     font-family: '0xProto', monospace;
-    color:
+    color: #000555;
 }
 
 .box-padding {
@@ -309,7 +323,7 @@ h1{
     font-family: '0xProto', monospace;
     width: 200px;
     min-height: 50px;
-    font/size: 24px;
+    font-size: 24px;
 }
 
 .community-title {
@@ -325,7 +339,7 @@ h1{
 .section-title {
     text-align: center;
     outline: 3px solid #000555;
-    olor:
+    color: #000555;
 }
 
 .box-padding {
@@ -336,7 +350,7 @@ h1{
     font-family: '0xProto', monospace;
     width: 200px;
     min-height: 50px;
-    font/size: 24px;
+    font-size: 24px;
 }
 
 .community-title {
@@ -379,6 +393,37 @@ h1{
 .changelog-text {
     white-space: pre-wrap;
     font-size: 18px;
+}
+
+.hover-outline h2 {
+    margin: 15px 0;
+    padding: 0 20px;
+}
+
+input[type="text"], input[type="url"], textarea {
+    padding: 10px;
+    border: 2px solid #000555;
+    background-color: #000555;
+    color: #ffffff;
+    font-family: '0xProto', monospace;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 24px;
+}
+
+input[type="text"]:focus, input[type="url"]:focus, textarea:focus {
+    outline: none;
+    background-color: #ffffff;
+    color: #000555;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.admin-header {
+    color: #8b0000 !important;
 }
 
 @media (max-width: 900px) {

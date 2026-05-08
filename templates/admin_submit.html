@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>oknoweb - Заявки игр</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<div class="page-frame">
+
+    <div class="top-bar">
+        <a href="{{ url_for('main_page') }}">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="OKNO logo" class="logo">
+        </a>
+        <div class="community-description">
+            <h1 class="community-title admin-header">OKNO SUBMIT PANEL</h1>
+        </div>
+    </div>
+
+    <br><br>
+
+    <h1 class="section-title admin-header" style="outline-color: #8b0000;"> Pending </h1>
+    <br>
+
+    {% for game in pending_games %}
+        <div class="hover-outline mb-10" style="display: flex; justify-content: space-between; align-items: center; text-align: left; padding: 20px;">
+            
+            <div style="flex: 1; padding-right: 20px;">
+                <h1>{{ game.title }}</h1>
+                <h2>
+                    <b>Контакты:</b> {{ game.contacts }}<br>
+                    <b>Ссылка:</b> <a href="{{ game.link }}" target="_blank" class="underline" style="color: #000555;">{{ game.link }}</a><br>
+                    <b>Инфо:</b> {{ game.info }}
+                </h2>
+            </div>
+            
+            <div>
+                <form action="{{ url_for('admin_approve', game_id=game.id) }}" method="POST">
+                    <button type="submit" class="button button-small" style="width: auto; min-width: 150px; font-size: 24px; padding: 10px 20px;"> 
+                        <span class="nf">approve</span> 
+                    </button>
+                </form>
+            </div>
+            
+        </div>
+        <br>
+    {% else %}
+        <div class="center">
+            <h2>Нет новых заявок.</h2>
+        </div>
+        <br>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>
