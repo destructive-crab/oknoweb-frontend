@@ -119,6 +119,9 @@ def submit_game():
          link = request.form.get('link')
          additionalInfo = request.form.get('additional_info')
 
+         if (additionalInfo == ""):
+             additionalInfo = "No additional info"
+
          url = 'https://oknoweb.ru/submit/api/new'
          payload = {"name": name, "contact": contact, "link": link, "additionalInfo": additionalInfo}
 
