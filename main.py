@@ -26,6 +26,14 @@ def login_required(f):
     return decorated_function
 
 
+def load_submits():
+    return json.loads(requests.get('https://oknoweb.ru/submit/api/submissions').content)
+
+
+def load_unverified_submits():
+    return json.loads(requests.get('https://oknoweb.ru/submit/api/panel/submissions', auth=(session['username'], session['password'])).content)
+
+
 def load_versions():
     return json.loads(requests.get('https://oknoweb.ru/api/versions/').content)
 
@@ -106,25 +114,35 @@ def download_linux(version_id):
 @app.route('/submit', methods=['GET', 'POST'])
 def submit_game():
     if request.method == 'POST':
-        # title = request.form.get('title')
-        # contacts = request.form.get('contacts')
-        # link = request.form.get('link')
-        # info = request.form.get('additional_info')
+         name = request.form.get('title')
+         contact = request.form.get('contacts')
+         link = request.form.get('link')
+         additionalInfo = request.form.get('additional_info')
+
+         url = 'https://oknoweb.ru/submit/api/new'
+         payload = {"name": name, "contact": contact, "link": link, "additionalInfo": additionalInfo}
+
+         response = requests.post(url, data=payload)
+         print(response.text)
         
-        return render_template('submit.html', success=True)
+         success = response.status_code == 200
+         return render_template('submit.html', success=True)
+
     return render_template('submit.html', success=False)
 
 
 @app.route('/games')
 def view_games():
-    # test data
-    reviewed_games = [
-        {"title": "game1", "link": "https://example.com/game1", "info": "Some beautiful game n1."},
-        {"title": "game2", "link": "https://example.com/game2", "info": "Some beautiful game n2."}
-    ]
-    pending_games = [
-        {"title": "game3", "info": "Some beautiful game n3."}
-    ]
+    reviewed_games = []
+    pending_games = []
+
+    all_submits = load_submits()
+
+    for submit in all_submits:
+        if submit.get("status") == "pending":
+            pending_games.append(submit)
+        elif submit.get("status") == "reviewed":
+            reviewed_games.append(submit)
     
     return render_template('games.html', reviewed_games=reviewed_games, pending_games=pending_games)
 
@@ -135,10 +153,13 @@ def admin_login():
         username = request.form.get('username')
         password = request.form.get('password')
         
-        is_valid = (username == 'admin' and password == '12345') #test func
+        res = requests.get("https://oknoweb.ru/submit/api/panel/login", auth=(username, password))
+        is_valid = res.status_code == 200
 
         if is_valid:
             session['admin_logged_in'] = True
+            session['username'] = username 
+            session['password'] = password 
             return redirect(url_for('admin_submit'))
         else:
             return render_template('admin_login.html', error=True)
@@ -154,25 +175,27 @@ def admin_logout():
 @app.route('/admin/submit')
 @login_required
 def admin_submit():
-    # test data
-    pending_games = [
-        {"id": 1, "title": "game3", "contacts": "@tg_dev", "link": "https://example.com/game3", "info": "Some beautiful game n3."},
-        {"id": 2, "title": "game4", "contacts": "email@example.com", "link": "https://example.com/game4", "info": "VERY LONG DESCRIPTION OF THE GAME, WITH LOTS OF DETAILS AND INFORMATION. THIS IS JUST A TEST TO SEE HOW IT LOOKS IN THE ADMIN PANEL."}
-    ]
-    return render_template('admin_submit.html', pending_games=pending_games)
+    unverified = []
+
+    all_submits = load_unverified_submits()
+
+    for submit in all_submits:
+        if submit.get("status") == "unverified":
+            unverified.append(submit)
+
+    return render_template('admin_submit.html', pending_games=unverified)
 
 
 @app.route('/admin/approve/<int:game_id>', methods=['POST'])
 @login_required
 def admin_approve(game_id):
-    # approve game in db
+    requests.post(f'https://oknoweb.ru/submit/api/panel/submissions/pend/{game_id}', auth=(session['username'], session['password']))
     return redirect(url_for('admin_submit'))
-
 
 @app.route('/admin/reject/<int:game_id>', methods=['POST'])
 @login_required
 def admin_reject(game_id):
-    # reject game in db
+    requests.post(f'https://oknoweb.ru/submit/api/panel/submissions/reject/{game_id}', auth=(session['username'], session['password']))
     return redirect(url_for('admin_submit'))
 
 
