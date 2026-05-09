@@ -10,34 +10,49 @@
 </head>
 
 <body>
-<div class="page-frame">
-
-    <div class="top-bar">
-        <a href="{{ url_for('main_page') }}">
-            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="OKNO logo" class="logo">
-        </a>
-
-        <div class="community-description">
-            <h1 class="community-title">
-                OKNO SUBMIT
-            </h1>
-        </div>
-    </div>
 
     <br>
     <br>
+
+    <div class="center">
+         <h1>
+             OKNO SUBMIT
+         </h1>
 
     <div class="hover-outline">
-        {% if success %}
-            <h1>Игра отправлена</h1>
-            <br>
-            <div class="center">
-                <a href="{{ url_for('main_page') }}">
-                    <button class="button"> <span class="nf">back</span> </button>
-                </a>
-            </div>
-            <br><br>
-        {% else %}
+    {% if success %}
+
+        <h1 style="background-color:#91ff00; color:#006280; margin: auto; padding: 40px; text-align: center; background-clip: content-box;"> Сабмит принят на рассмотрение! </h1>
+        <h1> Следите за новостями в Telegram</h1>
+
+        <a href="https://t.me/oknogmdv">
+            <button class="button"> <span class="nf"> telegram </span> </button>
+        </a>
+
+        <br>
+        <br>
+
+        <h1> Как только мы одобрим сабмит, он появится здесь </h1>
+        <div class="center">
+            <a href="{{ url_for('view_games') }}">
+                 <button class="button"> <span class="nf">all submits</span> </button>
+            </a>
+        </div>
+
+        <br>
+        <br>
+
+        <br>
+        <div class="center">
+            <a href="{{ url_for('main_page') }}">
+                <button class="button"> <span class="nf"> 󰘌 home 󰘌</span> </button>
+            </a>
+        </div>
+
+        <br><br>
+
+    {% else %}
+
             <h1>Заполните форму</h1>
             <form action="{{ url_for('submit_game') }}" method="POST" style="max-width: 600px; margin: 0 auto; text-align: left; padding: 20px;">
                 <div class="my-20">
@@ -61,14 +76,13 @@
                 </div>
                 
                 <div class="center mt-30">
-                    <button type="submit" class="button"> <span class="nf">Отправить</span> </button>
+                    <button type="submit" class="button"> <span class="nf">SUBMIT</span> </button>
                 </div>
             </form>
             <br>
-        {% endif %}
-    </div>
-
+   {% endif %}
 </div>
+    </div>
 
 </body>
 </html>

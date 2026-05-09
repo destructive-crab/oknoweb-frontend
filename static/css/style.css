@@ -239,6 +239,36 @@ h1{
     line-height: 1.2;
 }
 
+.button:hover {
+    color: #ffffff;
+    border-color: #000555;
+    background-color: #000555;
+}
+
+.button-green {
+    outline: 4px solid #006280;
+    background-color: #006280;
+    color: #91ff00;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 32px;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 330px;
+    min-height: 60px;
+    height: auto;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    white-space: normal;
+    line-height: 1.2;
+}
+
+.button-green:hover {
+    background-color: #91ff00;
+}
+
 .archive-version-button {
     width: 400px;
     max-width: 90%;
@@ -247,11 +277,6 @@ h1{
     font-size: 24px;
 }
 
-.button:hover {
-    color: #ffffff;
-    border-color: #000555;
-    background-color: #000555;
-}
 
 .nf {
     font-family: '0xProto', monospace;
@@ -403,8 +428,8 @@ h1{
 input[type="text"], input[type="url"], textarea {
     padding: 10px;
     border: 2px solid #000555;
-    background-color: #000555;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #000555;
     font-family: '0xProto', monospace;
     width: 100%;
     box-sizing: border-box;
@@ -412,8 +437,8 @@ input[type="text"], input[type="url"], textarea {
 }
 
 input[type="text"]:focus, input[type="url"]:focus, textarea:focus {
-    outline: none;
     background-color: #ffffff;
+    outline: 8px solid #000555;
     color: #000555;
 }
 

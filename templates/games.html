@@ -10,28 +10,35 @@
 </head>
 
 <body>
-<div class="page-frame">
 
-    <div class="top-bar">
+<div class="page-frame">
+    <div class="center">
         <a href="{{ url_for('main_page') }}">
-            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="OKNO logo" class="logo">
+            <button class="button"> <span class="nf"> 󰘌 home 󰘌</span> </button>
         </a>
+    </div>
+    <div class="top-bar">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="OKNO logo" class="logo">
 
         <div class="community-description">
             <h1 class="community-title">
-                Игры от сообщества
+                OKNO SUBMIT POOL
+                <br>
+                Все сабмиты тут 
+                <br>
+                Тут все сабмиты
             </h1>
         </div>
     </div>
 
     <br><br>
 
-    <h1 class="section-title"> Reviewed </h1>
+    <h1 class="section-title"> reviewed </h1>
     <br>
 
     {% for game in reviewed_games %}
         <div class="hover-outline mb-10">
-            <h1>{{ game.name}}</h1>
+            <h1>#{{ game.id }}{{ game.name}}</h1>
             <h2 class="box-padding">
                 {{ game.additionalInfo}}
             </h2>
@@ -53,12 +60,12 @@
 
     <br><br><br><br>
 
-    <h1 class="section-title"> Pending </h1>
+    <h1 class="section-title"> pending </h1>
     <br>
 
     {% for game in pending_games %}
         <div class="hover-outline mb-10">
-            <h1>{{ game.name}}</h1>
+            <h1>#{{ game.id }} {{ game.name}}</h1>
             <h2 class="box-padding">
                 {{ game.additionalInfo }}
             </h2>

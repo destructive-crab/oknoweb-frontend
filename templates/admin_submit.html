@@ -26,11 +26,11 @@
     <h1 class="section-title admin-header" style="outline-color: #8b0000;"> Pending </h1>
     <br>
 
-    {% for game in pending_games %}
+    {% for game in unverified%}
         <div class="hover-outline mb-10" style="display: flex; justify-content: space-between; align-items: center; text-align: left; padding: 20px;">
             
             <div style="flex: 1; padding-right: 20px;">
-                <h1>{{ game.title }}</h1>
+                <h1>{{ game.name }}</h1>
                 <h2>
                     <b>Контакты:</b> {{ game.contacts }}<br>
                     <b>Ссылка:</b> <a href="{{ game.link }}" target="_blank" class="underline" style="color: #000555;">{{ game.link }}</a><br>
@@ -56,6 +56,40 @@
     {% else %}
         <div class="center">
             <h2>Нет новых заявок.</h2>
+        </div>
+        <br>
+    {% endfor %}
+
+    {% for game in verified%}
+        <div class="hover-outline mb-10" style="display: flex; justify-content: space-between; align-items: center; text-align: left; padding: 20px;">
+            
+            <div style="flex: 1; padding-right: 20px;">
+                <h1>{{ game.name }}</h1>
+                <h2>
+                    <b>Контакты:</b> {{ game.contacts }}<br>
+                    <b>Ссылка:</b> <a href="{{ game.link }}" target="_blank" class="underline" style="color: #000555;">{{ game.link }}</a><br>
+                    <b>Инфо:</b> {{ game.info }}
+                </h2>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <form action="{{ url_for('admin_approve', game_id=game.id) }}" method="POST">
+                    <button type="submit" class="button button-small" style="width: auto; min-width: 150px; font-size: 24px; padding: 10px 20px;"> 
+                        <span class="nf">mark as reviewed</span> 
+                    </button>
+                </form>
+                <form action="{{ url_for('admin_reject', game_id=game.id) }}" method="POST">
+                    <button type="submit" class="button button-small" style="width: auto; min-width: 150px; font-size: 24px; padding: 10px 20px; border-color: #8b0000; color: #8b0000;"> 
+                        <span class="nf">delete</span> 
+                    </button>
+                </form>
+            </div>
+            
+        </div>
+        <br>
+    {% else %}
+        <div class="center">
+            <h2>Принятых сабмитов нет</h2>
         </div>
         <br>
     {% endfor %}

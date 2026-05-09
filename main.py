@@ -30,7 +30,7 @@ def load_submits():
     return json.loads(requests.get('https://oknoweb.ru/submit/api/submissions').content)
 
 
-def load_unverified_submits():
+def load_private_submits():
     return json.loads(requests.get('https://oknoweb.ru/submit/api/panel/submissions', auth=(session['username'], session['password'])).content)
 
 
@@ -177,13 +177,20 @@ def admin_logout():
 def admin_submit():
     unverified = []
 
-    all_submits = load_unverified_submits()
+    submits = load_private_submits()
 
-    for submit in all_submits:
+    unverified = []
+    verified = []
+
+    for submit in submits:
         if submit.get("status") == "unverified":
             unverified.append(submit)
 
-    return render_template('admin_submit.html', pending_games=unverified)
+    for submit in submits:
+        if submit.get("status") != "unverified":
+            verified.append(submit)
+
+    return render_template('admin_submit.html', unverified=unverified, verified=verified)
 
 
 @app.route('/admin/approve/<int:game_id>', methods=['POST'])
