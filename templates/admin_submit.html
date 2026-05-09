@@ -32,9 +32,10 @@
             <div style="flex: 1; padding-right: 20px;">
                 <h1>{{ game.name }}</h1>
                 <h2>
-                    <b>Контакты:</b> {{ game.contacts }}<br>
+                    <b>ID:</b> {{ game.id}}<br>
+                    <b>Контакты:</b> {{ game.contact }}<br>
                     <b>Ссылка:</b> <a href="{{ game.link }}" target="_blank" class="underline" style="color: #000555;">{{ game.link }}</a><br>
-                    <b>Инфо:</b> {{ game.info }}
+                    <b>Инфо:</b> {{ game.additionalInfo }}
                 </h2>
             </div>
             
@@ -60,15 +61,18 @@
         <br>
     {% endfor %}
 
+    <h1 class="section-title admin-header" style="outline-color: #8b0000;"> Already Verified</h1>
+    <br>
     {% for game in verified%}
         <div class="hover-outline mb-10" style="display: flex; justify-content: space-between; align-items: center; text-align: left; padding: 20px;">
             
             <div style="flex: 1; padding-right: 20px;">
                 <h1>{{ game.name }}</h1>
                 <h2>
-                    <b>Контакты:</b> {{ game.contacts }}<br>
+                    <b>ID:</b> {{ game.id}}<br>
+                    <b>Контакты:</b> {{ game.contact }}<br>
                     <b>Ссылка:</b> <a href="{{ game.link }}" target="_blank" class="underline" style="color: #000555;">{{ game.link }}</a><br>
-                    <b>Инфо:</b> {{ game.info }}
+                    <b>Инфо:</b> {{ game.additionalInfo }}
                 </h2>
             </div>
             

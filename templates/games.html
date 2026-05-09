@@ -38,7 +38,7 @@
 
     {% for game in reviewed_games %}
         <div class="hover-outline mb-10">
-            <h1>#{{ game.id }}{{ game.name}}</h1>
+            <h1>{{ game.name}}</h1>
             <h2 class="box-padding">
                 {{ game.additionalInfo}}
             </h2>
@@ -65,7 +65,7 @@
 
     {% for game in pending_games %}
         <div class="hover-outline mb-10">
-            <h1>#{{ game.id }} {{ game.name}}</h1>
+            <h1> {{ game.name}}</h1>
             <h2 class="box-padding">
                 {{ game.additionalInfo }}
             </h2>
