@@ -26,26 +26,26 @@
     <h1 class="section-title admin-header" style="outline-color: #8b0000;"> Pending </h1>
     <br>
 
-    {% for game in unverified%}
+    {% for submit in unverified%}
         <div class="hover-outline mb-10" style="display: flex; justify-content: space-between; align-items: center; text-align: left; padding: 20px;">
             
             <div style="flex: 1; padding-right: 20px;">
-                <h1>{{ game.name }}</h1>
+                <h1>{{ submit.name }}</h1>
                 <h2>
-                    <b>ID:</b> {{ game.id}}<br>
-                    <b>Контакты:</b> {{ game.contact }}<br>
-                    <b>Ссылка:</b> <a href="{{ game.link }}" target="_blank" class="underline" style="color: #000555;">{{ game.link }}</a><br>
-                    <b>Инфо:</b> {{ game.additionalInfo }}
+                    <b>ID:</b> {{ submit.id}}<br>
+                    <b>Контакты:</b> {{ submit.contact }}<br>
+                    <b>Ссылка:</b> <a href="{{ submit.link }}" target="_blank" class="underline" style="color: #000555;">{{ submit.link }}</a><br>
+                    <b>Инфо:</b> {{ submit.additionalInfo }}
                 </h2>
             </div>
             
             <div style="display: flex; flex-direction: column; gap: 10px;">
-                <form action="{{ url_for('admin_approve', game_id=game.id) }}" method="POST">
+                <form action="{{ url_for('admin_approve', submit_id=submit.id) }}" method="POST">
                     <button type="submit" class="button button-small" style="width: auto; min-width: 150px; font-size: 24px; padding: 10px 20px;"> 
                         <span class="nf">approve</span> 
                     </button>
                 </form>
-                <form action="{{ url_for('admin_reject', game_id=game.id) }}" method="POST">
+                <form action="{{ url_for('admin_reject', submit_id=submit.id) }}" method="POST">
                     <button type="submit" class="button button-small" style="width: auto; min-width: 150px; font-size: 24px; padding: 10px 20px; border-color: #8b0000; color: #8b0000;"> 
                         <span class="nf">reject</span> 
                     </button>
@@ -63,22 +63,22 @@
 
     <h1 class="section-title admin-header" style="outline-color: #8b0000;"> Already Verified</h1>
     <br>
-    {% for game in verified %}
+    {% for submit in verified %}
         <div class="hover-outline mb-10" style="display: flex; justify-content: space-between; align-items: center; text-align: left; padding: 20px;">
             
             <div style="flex: 1; padding-right: 20px;">
-                <h1>{{ game.name }}</h1>
+                <h1>{{ submit.name }}</h1>
                 <h2>
-                    <b>ID:</b> {{ game.id}}<br>
-                    <b>Контакты:</b> {{ game.contact }}<br>
-                    <b>Ссылка:</b> <a href="{{ game.link }}" target="_blank" class="underline" style="color: #000555;">{{ game.link }}</a><br>
-                    <b>Инфо:</b> {{ game.additionalInfo }}
+                    <b>ID:</b> {{ submit.id}}<br>
+                    <b>Контакты:</b> {{ submit.contact }}<br>
+                    <b>Ссылка:</b> <a href="{{ submit.link }}" target="_blank" class="underline" style="color: #000555;">{{ submit.link }}</a><br>
+                    <b>Инфо:</b> {{ submit.additionalInfo }}
                 </h2>
             
                    <h2> Ссылка на обзор: </h2>
 
-                   {% if game.get("status") != "reviewed" %}
-                   <form action="{{ url_for('admin_review', game_id=game.id) }}" method="POST">
+                   {% if submit.get("status") != "reviewed" %}
+                   <form action="{{ url_for('admin_review', submit_id=submit.id) }}" method="POST">
                    <input type="text" id="reviewLink" name="reviewLink">
                        <button type="submit" class="button button-small" style="width: auto; min-width: 150px; font-size: 24px; padding: 10px 20px;"> 
                             <span class="nf">post review</span> 
@@ -86,13 +86,13 @@
                    </form>
 
                    {% else %}
-                       <form action="{{ url_for('admin_review', game_id=game.id) }}" method="POST">
+                       <form action="{{ url_for('admin_review', submit_id=submit.id) }}" method="POST">
                        <input type="text" id="reviewLink" name="reviewLink">
                             <button type="submit" class="button button-small" style="width: auto; min-width: 150px; font-size: 24px; padding: 10px 20px;"> 
                                 <span class="nf">update review link</span> 
                             </button>
                        </form>
-                       <form action="{{ url_for('admin_review_remove', game_id=game.id) }}" method="POST">
+                       <form action="{{ url_for('admin_review_remove', submit_id=submit.id) }}" method="POST">
                             <button type="submit" class="button button-small" style="width: auto; min-width: 150px; font-size: 24px; padding: 10px 20px;"> 
                                 <span class="nf">remove review</span> 
                             </button>

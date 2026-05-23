@@ -112,7 +112,7 @@ def download_linux(version_id):
 
 
 @app.route('/submit', methods=['GET', 'POST'])
-def submit_game():
+def submit():
     if request.method == 'POST':
          name = request.form.get('title')
          contact = request.form.get('contacts')
@@ -134,20 +134,20 @@ def submit_game():
     return render_template('submit.html', success=False)
 
 
-@app.route('/games')
-def view_games():
-    reviewed_games = []
-    pending_games = []
+@app.route('/submits')
+def view_submits():
+    reviewed= []
+    pending= []
 
     all_submits = load_submits()
 
     for submit in all_submits:
         if submit.get("status") == "pending":
-            pending_games.append(submit)
+            pending.append(submit)
         elif submit.get("status") == "reviewed":
-            reviewed_games.append(submit)
+            reviewed.append(submit)
     
-    return render_template('games.html', reviewed_games=reviewed_games, pending_games=pending_games)
+    return render_template('submits.html', reviewed=reviewed, pending=pending)
 
 
 @app.route('/admin/login', methods=['GET', 'POST'])
@@ -196,29 +196,29 @@ def admin_submit():
     return render_template('admin_submit.html', unverified=unverified, verified=verified)
 
 
-def pend_submit(game_id):
-    requests.post(f'https://oknoweb.ru/submit/api/panel/submissions/pend/{game_id}', auth=(session['username'], session['password']))
+def pend_submit(submit_id):
+    requests.post(f'https://oknoweb.ru/submit/api/panel/submissions/pend/{submit_id}', auth=(session['username'], session['password']))
     return redirect(url_for('admin_submit'))
 
 
-@app.route('/admin/approve/<int:game_id>', methods=['POST'])
+@app.route('/admin/approve/<int:submit_id>', methods=['POST'])
 @login_required
-def admin_approve(game_id):
-    return pend_submit(game_id)
+def admin_approve(submit_id):
+    return pend_submit(submit_id)
 
 
-@app.route('/admin/review/remove/<int:game_id>', methods=['POST'])
+@app.route('/admin/review/remove/<int:submit_id>', methods=['POST'])
 @login_required
-def admin_review_remove(game_id):
-    return pend_submit(game_id)
+def admin_review_remove(submit_id):
+    return pend_submit(submit_id)
 
 
-@app.route('/admin/review/<int:game_id>', methods=['POST'])
+@app.route('/admin/review/<int:submit_id>', methods=['POST'])
 @login_required
-def admin_review(game_id):
+def admin_review(submit_id):
     reviewLink = request.form.get('reviewLink')
 
-    url = f'https://oknoweb.ru/submit/api/panel/submissions/review/set/{game_id}'
+    url = f'https://oknoweb.ru/submit/api/panel/submissions/review/set/{submit_id}'
     payload = { "reviewLink": reviewLink }
 
     response = requests.post(url, 
@@ -230,10 +230,10 @@ def admin_review(game_id):
     return redirect(url_for('admin_submit'))
 
 
-@app.route('/admin/reject/<int:game_id>', methods=['POST'])
+@app.route('/admin/reject/<int:submit_id>', methods=['POST'])
 @login_required
-def admin_reject(game_id):
-    requests.post(f'https://oknoweb.ru/submit/api/panel/submissions/reject/{game_id}', auth=(session['username'], session['password']))
+def admin_reject(submit_id):
+    requests.post(f'https://oknoweb.ru/submit/api/panel/submissions/reject/{submit_id}', auth=(session['username'], session['password']))
     return redirect(url_for('admin_submit'))
 
 
