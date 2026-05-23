@@ -466,8 +466,18 @@ textarea {
         gap: 3vw;
     }
 
+    .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .logo {
-        order: -1;
+        text-align: center;
+        width: 45%;
+    }
+
+    .logo-center {
         margin: 0 auto;
         width: 45%;
         min-width: 150px;

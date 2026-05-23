@@ -63,7 +63,7 @@
 
     <h1 class="section-title admin-header" style="outline-color: #8b0000;"> Already Verified</h1>
     <br>
-    {% for game in verified%}
+    {% for game in verified %}
         <div class="hover-outline mb-10" style="display: flex; justify-content: space-between; align-items: center; text-align: left; padding: 20px;">
             
             <div style="flex: 1; padding-right: 20px;">
@@ -74,21 +74,34 @@
                     <b>Ссылка:</b> <a href="{{ game.link }}" target="_blank" class="underline" style="color: #000555;">{{ game.link }}</a><br>
                     <b>Инфо:</b> {{ game.additionalInfo }}
                 </h2>
-            </div>
             
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-                <form action="{{ url_for('admin_approve', game_id=game.id) }}" method="POST">
-                    <button type="submit" class="button button-small" style="width: auto; min-width: 150px; font-size: 24px; padding: 10px 20px;"> 
-                        <span class="nf">mark as reviewed</span> 
-                    </button>
-                </form>
-                <form action="{{ url_for('admin_reject', game_id=game.id) }}" method="POST">
-                    <button type="submit" class="button button-small" style="width: auto; min-width: 150px; font-size: 24px; padding: 10px 20px; border-color: #8b0000; color: #8b0000;"> 
-                        <span class="nf">delete</span> 
-                    </button>
-                </form>
-            </div>
+                   <h2> Ссылка на обзор: </h2>
+
+                   {% if game.get("status") != "reviewed" %}
+                   <form action="{{ url_for('admin_review', game_id=game.id) }}" method="POST">
+                   <input type="text" id="reviewLink" name="reviewLink">
+                       <button type="submit" class="button button-small" style="width: auto; min-width: 150px; font-size: 24px; padding: 10px 20px;"> 
+                            <span class="nf">post review</span> 
+                       </button>
+                   </form>
+
+                   {% else %}
+                       <form action="{{ url_for('admin_review', game_id=game.id) }}" method="POST">
+                       <input type="text" id="reviewLink" name="reviewLink">
+                            <button type="submit" class="button button-small" style="width: auto; min-width: 150px; font-size: 24px; padding: 10px 20px;"> 
+                                <span class="nf">update review link</span> 
+                            </button>
+                       </form>
+                       <form action="{{ url_for('admin_review_remove', game_id=game.id) }}" method="POST">
+                            <button type="submit" class="button button-small" style="width: auto; min-width: 150px; font-size: 24px; padding: 10px 20px;"> 
+                                <span class="nf">remove review</span> 
+                            </button>
+                       </form>
+                   {% endif %}
+
             
+            </div>
+
         </div>
         <br>
     {% else %}

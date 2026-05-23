@@ -196,11 +196,39 @@ def admin_submit():
     return render_template('admin_submit.html', unverified=unverified, verified=verified)
 
 
+def pend_submit(game_id):
+    requests.post(f'https://oknoweb.ru/submit/api/panel/submissions/pend/{game_id}', auth=(session['username'], session['password']))
+    return redirect(url_for('admin_submit'))
+
+
 @app.route('/admin/approve/<int:game_id>', methods=['POST'])
 @login_required
 def admin_approve(game_id):
-    requests.post(f'https://oknoweb.ru/submit/api/panel/submissions/pend/{game_id}', auth=(session['username'], session['password']))
+    return pend_submit(game_id)
+
+
+@app.route('/admin/review/remove/<int:game_id>', methods=['POST'])
+@login_required
+def admin_review_remove(game_id):
+    return pend_submit(game_id)
+
+
+@app.route('/admin/review/<int:game_id>', methods=['POST'])
+@login_required
+def admin_review(game_id):
+    reviewLink = request.form.get('reviewLink')
+
+    url = f'https://oknoweb.ru/submit/api/panel/submissions/review/set/{game_id}'
+    payload = { "reviewLink": reviewLink }
+
+    response = requests.post(url, 
+                             data=payload, 
+                             auth=(session['username'], session['password']),
+                             headers={'Content-Type': 'application/x-www-form-urlencoded'})
+    print(reviewLink, response.text)
+
     return redirect(url_for('admin_submit'))
+
 
 @app.route('/admin/reject/<int:game_id>', methods=['POST'])
 @login_required
