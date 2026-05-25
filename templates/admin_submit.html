@@ -7,6 +7,37 @@
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .contact-toggle {
+            cursor: pointer;
+            color: #000555;
+            border-bottom: 1px dashed #000555;
+            display: inline-block;
+        }
+
+        .contact-mask {
+            user-select: none;
+        }
+
+        .contact-value {
+            display: none;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            vertical-align: top;
+        }
+
+        .contact-toggle.is-visible {
+            border-bottom-style: solid;
+        }
+
+        .contact-toggle.is-visible .contact-mask {
+            display: none;
+        }
+
+        .contact-toggle.is-visible .contact-value {
+            display: inline-block;
+        }
+    </style>
 </head>
 
 <body>
@@ -33,7 +64,11 @@
                 <h1>{{ submit.name }}</h1>
                 <h2>
                     <b>ID:</b> {{ submit.id}}<br>
-                    <b>Контакты:</b> {{ submit.contact }}<br>
+                    <b>Контакты:</b>
+                    <span class="contact-toggle" data-contact-toggle role="button" tabindex="0" aria-label="Toggle contacts">
+                        <span class="contact-mask" data-contact-mask>########</span>
+                        <span class="contact-value" data-contact-value>{{ submit.contact }}</span>
+                    </span><br>
                     <b>Ссылка:</b> <a href="{{ submit.link }}" target="_blank" class="underline" style="color: #000555;">{{ submit.link }}</a><br>
                     <b>Инфо:</b> {{ submit.additionalInfo }}
                 </h2>
@@ -70,7 +105,11 @@
                 <h1>{{ submit.name }}</h1>
                 <h2>
                     <b>ID:</b> {{ submit.id}}<br>
-                    <b>Контакты:</b> {{ submit.contact }}<br>
+                    <b>Контакты:</b>
+                    <span class="contact-toggle" data-contact-toggle role="button" tabindex="0" aria-label="Toggle contacts">
+                        <span class="contact-mask" data-contact-mask>########</span>
+                        <span class="contact-value" data-contact-value>{{ submit.contact }}</span>
+                    </span><br>
                     <b>Ссылка:</b> <a href="{{ submit.link }}" target="_blank" class="underline" style="color: #000555;">{{ submit.link }}</a><br>
                     <b>Инфо:</b> {{ submit.additionalInfo }}
                 </h2>
@@ -112,6 +151,25 @@
     {% endfor %}
 
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const toggles = document.querySelectorAll("[data-contact-toggle]");
+        toggles.forEach((toggle) => {
+            const toggleContact = () => {
+                toggle.classList.toggle("is-visible");
+            };
+
+            toggle.addEventListener("click", toggleContact);
+            toggle.addEventListener("keydown", (event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    toggleContact();
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 </html>
