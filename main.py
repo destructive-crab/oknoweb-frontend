@@ -147,6 +147,9 @@ def view_submits():
         elif submit.get("status") == "reviewed":
             reviewed.append(submit)
     
+    reviewed.reverse()
+    pending.reverse()
+
     return render_template('submits.html', reviewed=reviewed, pending=pending)
 
 
