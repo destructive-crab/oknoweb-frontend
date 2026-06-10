@@ -352,12 +352,10 @@ h1{
 }
 
 .community-title {
-    padding-right: 60px;
     font-size: 32px;
 }
 
 .community-subtitle {
-    padding-right: 60px;
     font-size: 28px;
 }
 
@@ -376,16 +374,6 @@ h1{
     width: 200px;
     min-height: 50px;
     font-size: 24px;
-}
-
-.community-title {
-    padding-right: 60px;
-    font-size: 32px;
-}
-
-.community-subtitle {
-    padding-right: 60px;
-    font-size: 28px;
 }
 
 .section-title {
@@ -473,7 +461,9 @@ textarea {
     }
 
     .logo {
-        text-align: center;
+        /* text-align: center; */
+        margin-left: auto;
+        margin-right: auto;
         width: 45%;
     }
 
