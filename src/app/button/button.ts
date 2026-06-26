@@ -94,7 +94,7 @@ export class Button {
           this.textSizeXL = '6xl';
 
           this.hpSM = '16';
-          this.hpMD = '20';
+          this.hpMD = '18';
           break;
 
         case 't4':
@@ -102,8 +102,8 @@ export class Button {
           this.textSizeMD = '6xl';
           this.textSizeXL = '7xl';
 
-          this.hpSM = '30';
-          this.hpMD = '40';
+          this.hpSM = '18';
+          this.hpMD = '20';
           break;
 
         case 't5':
@@ -111,8 +111,8 @@ export class Button {
           this.textSizeMD = '7xl';
           this.textSizeXL = '8xl';
 
-          this.hpSM = '50';
-          this.hpMD = '40';
+          this.hpSM = '24';
+          this.hpMD = '2';
           break;
 
         case 'tvw':
