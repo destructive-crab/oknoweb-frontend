@@ -3,6 +3,7 @@ import { Home } from './home/home';
 import { Submit } from './submit/submit';
 import { Submissions } from './submissions/submissions';
 import { SubmitSuccess } from './submit-success/submit-success';
+import { RenderMode } from '@angular/ssr';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -10,5 +11,8 @@ export const routes: Routes = [
   { path: 'home', component: Home },
   { path: 'submit', component: Submit },
   { path: 'submissions', component: Submissions },
-  { path: 'submit/success/:id', component: SubmitSuccess },
+  {
+    path: 'submit/success/:id',
+    component: SubmitSuccess,
+  },
 ];
