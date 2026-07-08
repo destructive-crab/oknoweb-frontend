@@ -3,6 +3,7 @@ DS_STORE
 /bazel-out
 /integration/bazel/bazel-*
 *.log
+*.env
 node_modules/
 modules/ssr-benchmarks/node_modules/
 

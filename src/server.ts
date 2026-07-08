@@ -6,6 +6,7 @@ import {
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 import { join } from 'node:path';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
@@ -14,24 +15,25 @@ const app = express();
 const angularApp = new AngularNodeAppEngine();
 
 const appEngine = new AngularAppEngine({
-  trustProxyHeaders: ['x-forwarded-host', 'x-forwarded-proto'], // Trust specific headers
+  trustProxyHeaders: ['x-forwarded-host', 'x-forwarded-proto'],
 });
 
 const nodeAppEngine = new AngularNodeAppEngine({
-  trustProxyHeaders: true, // Trust all X-Forwarded-* headers
+  trustProxyHeaders: true,
 });
 
-/**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/{*splat}', (req, res) => {
- *   // Handle API request
- * });
- * ```
- */
+/* Proxy API requests to oknoweb.ru */
+const apiProxy = createProxyMiddleware({
+  target: 'https://oknoweb.ru',
+  changeOrigin: true,
+  secure: false,
+  logger: console,
+});
+app.use((req, res, next) => {
+  if (!req.path.startsWith('/submit/api')) return next();
+  console.log('[PROXY]', req.method, req.originalUrl);
+  apiProxy(req, res, next);
+});
 
 /**
  * Serve static files from /browser
@@ -54,22 +56,12 @@ app.use((req, res, next) => {
     .catch(next);
 });
 
-/**
- * Start the server if this module is the main entry point, or it is ran via PM2.
- * The server listens on the port defined by the `PORT` environment variable, or defaults to 4000.
- */
 if (isMainModule(import.meta.url) || process.env['pm_id']) {
   const port = process.env['PORT'] || 4000;
   app.listen(port, (error) => {
-    if (error) {
-      throw error;
-    }
-
+    if (error) throw error;
     console.log(`Node Express server listening on http://localhost:${port}`);
   });
 }
 
-/**
- * Request handler used by the Angular CLI (for dev-server and during build) or Firebase Cloud Functions.
- */
 export const reqHandler = createNodeRequestHandler(app);

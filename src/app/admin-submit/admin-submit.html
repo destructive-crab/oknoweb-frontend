@@ -1,0 +1,90 @@
+<div class="flex justify-center items-center w-full min-h-screen">
+  <app-block>
+    <div class="w-full flex flex-col items-center p-6 md:py-16">
+      <img src="okno_submit.png" alt="OKNO*ADMIN" class="h-24 md:h-40 object-contain object-center mb-6" />
+      <h2 class="font-main text-4xl md:text-5xl 3xl:text-6xl text-[#000555] text-center mb-6">OKNO SUBMIT PANEL</h2>
+
+      <div *ngIf="loading" class="font-main text-lg text-blue-700 mb-4">Загрузка…</div>
+      <div *ngIf="error" class="font-main text-lg text-red-700 mb-4">{{error}}</div>
+
+      <h1 class="font-main text-3xl mt-6 mb-2 text-[#000555] border-4 border-blue-700 w-full text-center py-2">Pending</h1>
+      <div *ngIf="unverified?.length === 0" class="font-main text-xl my-4 text-center">Нет новых заявок</div>
+      <div *ngFor="let submit of unverified" class="border-8 border-blue-700 border-double bg-white w-full mb-6 p-5 flex flex-col md:flex-row justify-between items-center md:gap-5">
+        <div class="flex-1 pr-6">
+          <div class="font-main text-2xl text-[#000555]">{{submit.name}}</div>
+          <div class="font-main text-md mb-2 text-[#000555]"><b>ID:</b> {{submit.id}}</div>
+          <div class="font-main text-md mb-2 text-[#000555]">
+            <b>Контакты:</b>
+            <span (click)="toggleMask(submit.id)" tabindex="0"
+                  class="contact-toggle cursor-pointer select-none border-b border-dashed border-blue-900 inline-block"
+                  [class.is-visible]="maskToggle[submit.id]"
+                  role="button" aria-label="Показать контакты">
+              <span class="contact-mask" *ngIf="!maskToggle[submit.id]">########</span>
+              <span class="contact-value" *ngIf="maskToggle[submit.id]">{{ submit.contact }}</span>
+            </span>
+          </div>
+          <div class="font-main text-md mb-2 text-[#000555]">
+            <b>Ссылка:</b> <a href="{{submit.link}}" target="_blank" class="underline text-[#000555]">{{submit.link}}</a>
+          </div>
+          <div class="font-main text-md mb-2 text-[#000555]">
+            <b>Инфо:</b> {{submit.additionalInfo}}
+          </div>
+        </div>
+        <div class="flex flex-col gap-2 md:gap-2 items-center min-w-[180px]">
+          <button (click)="approve(submit.id)" class="font-bold bg-white text-blue-700 border-4 border-blue-700 hover:bg-blue-700 hover:text-white items-center font-main text-2xl md:text-3xl hover:cursor-pointer w-full py-2 ">
+            approve
+          </button>
+          <button (click)="reject(submit.id)" class="font-bold bg-white text-pink-500 border-4 border-pink-500 hover:bg-pink-500 hover:text-white items-center font-main text-2xl md:text-3xl hover:cursor-pointer w-full py-2 ">
+            reject
+          </button>
+        </div>
+      </div>
+
+      <h1 class="font-main text-3xl mt-12 mb-2 text-[#000555] border-4 border-blue-700 w-full text-center py-2">Already Verified</h1>
+      <div *ngIf="verified?.length === 0" class="font-main text-xl my-4 text-center">Принятых сабмитов нет</div>
+
+      <div *ngFor="let submit of verified" class="border-8 border-blue-700 border-double bg-white w-full mb-6 p-5 flex flex-col md:flex-row justify-between items-center md:gap-5">
+        <div class="flex-1 pr-6">
+          <div class="font-main text-2xl text-[#000555]">{{submit.name}}</div>
+          <div class="font-main text-md mb-2 text-[#000555]"><b>ID:</b> {{submit.id}}</div>
+          <div class="font-main text-md mb-2 text-[#000555]">
+            <b>Контакты:</b>
+            <span (click)="toggleMask(submit.id)" tabindex="0"
+                  class="contact-toggle cursor-pointer select-none border-b border-dashed border-blue-900 inline-block"
+                  [class.is-visible]="maskToggle[submit.id]"
+                  role="button" aria-label="Показать контакты">
+              <span class="contact-mask" *ngIf="!maskToggle[submit.id]">########</span>
+              <span class="contact-value" *ngIf="maskToggle[submit.id]">{{ submit.contact }}</span>
+            </span>
+          </div>
+          <div class="font-main text-md mb-2 text-[#000555]">
+            <b>Ссылка:</b> <a href="{{submit.link}}" target="_blank" class="underline text-[#000555]">{{submit.link}}</a>
+          </div>
+          <div class="font-main text-md mb-2 text-[#000555]">
+            <b>Инфо:</b> {{submit.additionalInfo}}
+          </div>
+
+          <div class="font-main text-md mt-4 text-[#000555]"><b>Ссылка на обзор:</b></div>
+          <div class="flex flex-row flex-wrap items-center gap-2 mt-2">
+            <input [(ngModel)]="reviewEdit[submit.id]" [ngModelOptions]="{standalone: true}" placeholder="Ссылка на обзор" class="font-main bg-white text-blue-700 border-4 border-pink-400 px-2 py-1 text-center text-lg w-48" />
+            <button (click)="postReview(submit.id)" class="font-bold bg-white text-blue-700 border-4 border-blue-700 hover:bg-blue-700 hover:text-white items-center font-main text-lg hover:cursor-pointer px-4 py-1 ">
+              post review
+            </button>
+            <button (click)="removeReview(submit.id)" class="font-bold bg-white text-pink-500 border-4 border-pink-500 hover:bg-pink-500 hover:text-white items-center font-main text-lg hover:cursor-pointer px-4 py-1 ">
+              remove review
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </app-block>
+</div>
+
+<style>
+.contact-toggle { cursor:pointer; color:#000555; border-bottom:1px dashed #000555; display:inline-block; }
+.contact-mask { user-select:none; }
+.contact-toggle.is-visible { border-bottom-style: solid; }
+.contact-toggle.is-visible .contact-mask { display:none; }
+.contact-toggle.is-visible .contact-value { display:inline-block; }
+</style>

@@ -15,4 +15,12 @@ export const routes: Routes = [
     path: 'submit/success/:id',
     component: SubmitSuccess,
   },
+  {
+    path: 'admin/login',
+    loadComponent: () => import('./admin-login/admin-login').then(m => m.AdminLogin)
+  },
+  {
+    path: 'admin/submit',
+    loadComponent: () => import('./admin-submit/admin-submit').then(m => m.AdminSubmit)
+  }
 ];

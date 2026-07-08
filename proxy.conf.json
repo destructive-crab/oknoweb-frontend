@@ -1,0 +1,7 @@
+{
+  "/submit/api": {
+    "target": "https://oknoweb.ru",
+    "changeOrigin": true,
+    "secure": false
+  }
+}
