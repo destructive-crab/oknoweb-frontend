@@ -2,6 +2,7 @@ import { Component, Inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Block } from '../block/block';
+import { Button } from '../button/button';
 
 export interface AdminSubmitEntry {
   id: number;
@@ -16,7 +17,7 @@ export interface AdminSubmitEntry {
 @Component({
   selector: 'app-admin-submit',
   standalone: true,
-  imports: [Block, CommonModule, FormsModule],
+  imports: [Block, Button, CommonModule, FormsModule],
   templateUrl: './admin-submit.html',
   styleUrl: './admin-submit.css',
 })

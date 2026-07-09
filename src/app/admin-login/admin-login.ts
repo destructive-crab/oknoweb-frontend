@@ -2,6 +2,7 @@ import { Component, inject, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Block } from '../block/block';
+import { Button } from '../button/button';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DOCUMENT } from '@angular/common';
@@ -9,7 +10,7 @@ import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-admin-login',
   standalone: true,
-  imports: [Block, FormsModule, CommonModule],
+  imports: [Block, Button, FormsModule, CommonModule],
   templateUrl: './admin-login.html',
   styleUrl: './admin-login.css',
 })
