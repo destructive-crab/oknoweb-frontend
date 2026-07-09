@@ -1,0 +1,14 @@
+// provide biom configuration file - lsp, formatter and linter
+{
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "recommended": true
+        }
+    },
+    "formatter": {
+        "lineWidth": 120,
+        "indentStyle": "space",
+        "indentWidth": 6
+    }
+}

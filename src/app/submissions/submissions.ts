@@ -49,9 +49,9 @@ export class Submissions {
         this.submissions.reverse();
 
         for (const submit of this.submissions) {
-          if (submit.status == 'pending') {
+          if (submit.status === 'pending') {
             this.pendingSubmissions.push(submit);
-          } else if (submit.status == 'reviewed') {
+          } else if (submit.status === 'reviewed') {
             this.reviewedSubmissions.push(submit);
           }
         }
