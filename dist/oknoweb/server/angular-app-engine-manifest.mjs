@@ -1,7 +1,10 @@
 
 export default {
   basePath: '/',
-  allowedHosts: [],
+  allowedHosts: [
+  "oknoweb.ru",
+  "localhost"
+],
   supportedLocales: {
   "en-US": ""
 },
