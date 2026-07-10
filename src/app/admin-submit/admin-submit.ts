@@ -94,6 +94,10 @@ export class AdminSubmit {
     this.loadSubmits();
   }
 
+  showPending: boolean = true;
+  openPending() { this.showPending = true; }
+  openVerified() { this.showPending = false; }
+
   maskToggle: { [id: number]: boolean } = {};
   toggleMask(id: number) { this.maskToggle[id] = !this.maskToggle[id]; }
 }
