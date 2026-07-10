@@ -39,7 +39,7 @@
       <h1 class="font-main text-4xl md:text-5xl mt-12 mb-2 text-[#000555] border-4 border-blue-700 w-full text-center py-2">Already Verified</h1>
       <div *ngIf="verified?.length === 0" class="font-main text-2xl md:text-3xl my-4 text-center">Принятых сабмитов нет</div>
 
-      <div *ngFor="let submit of verified" class="border-8 border-blue-700 border-double bg-white w-full mb-6 p-5 flex flex-col md:flex-row justify-between items-center md:gap-5">
+      <div *ngFor="let submit of verified" class="border-8 border-blue-700 border-double bg-white w-full mb-6 p-5 flex flex-col md:flex-row justify-between items-stretch md:gap-5">
         <div class="flex-1 pr-6">
           <div class="font-main text-3xl md:text-4xl text-[#000555]">{{submit.name}}</div>
           <div class="font-main text-xl md:text-2xl mb-2 text-[#000555]"><b>ID:</b> {{submit.id}}</div>
@@ -66,6 +66,9 @@
             <app-button preset="full blue t2" (onClick)="postReview(submit.id)">post review</app-button>
             <app-button preset="full pinkalt2 t2" (onClick)="removeReview(submit.id)">remove review</app-button>
           </div>
+        </div>
+        <div class="flex flex-col justify-end items-center min-w-[180px]">
+          <app-button preset="full pinkalt2 t2" (onClick)="reject(submit.id)" class="w-full">reject</app-button>
         </div>
       </div>
 
