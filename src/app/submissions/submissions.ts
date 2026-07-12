@@ -1,12 +1,12 @@
-import { Component, inject, Inject } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { DOCUMENT, isPlatformServer } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { SubmitInfo } from '../models/submit.model';
+import { Component, Inject, inject, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { Block } from '../block/block';
 import { Button } from '../button/button';
+import type { SubmitInfo } from '../models/submit.model';
 import { SubmissionsList } from '../submissions-list/submissions-list';
-import { DOCUMENT } from '@angular/common';
 
 export enum SortingType {
   OldNew,
@@ -14,19 +14,19 @@ export enum SortingType {
 }
 
 @Component({
-  selector: 'app-submissions',
   imports: [FormsModule, SubmissionsList, Button, Block, RouterModule],
+  selector: 'app-submissions',
   templateUrl: './submissions.html',
 })
 export class Submissions {
   private http = inject(HttpClient);
 
   public submissions: SubmitInfo[] = [];
-
-  public pendingSubmissions: SubmitInfo[] = [];
-  public reviewedSubmissions: SubmitInfo[] = [];
+  // public pendingSubmissions: SubmitInfo[] = [];
+  // public reviewedSubmissions: SubmitInfo[] = [];
 
   public pending: boolean = true;
+  public submissionsCount: number = 0;
 
   openPending() {
     this.pending = true;
@@ -35,7 +35,7 @@ export class Submissions {
     this.pending = false;
   }
 
-  constructor(@Inject(DOCUMENT) private document: Document) {}
+  constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: Object) {};
 
   ngOnInit() {
     this.document.body.classList.add('min-h-screen');
@@ -44,17 +44,22 @@ export class Submissions {
 
     this.http
       .get<SubmitInfo[]>('https://oknoweb.ru/submit/api/submissions')
-      .subscribe((data: any) => {
+      .subscribe((data: SubmitInfo[]) => {
         this.submissions = data;
-        this.submissions.reverse();
 
-        for (const submit of this.submissions) {
-          if (submit.status === 'pending') {
-            this.pendingSubmissions.push(submit);
-          } else if (submit.status === 'reviewed') {
-            this.reviewedSubmissions.push(submit);
-          }
+        if (isPlatformServer(this.platformId)) {
+          this.submissions.reverse();
         }
+
+        this.submissionsCount = data.length;
+
+        // for (const submit of data) {
+        //   if (submit.status === 'pending') {
+        //     this.pendingSubmissions.push(submit);
+        //   } else if (submit.status === 'reviewed') {
+        //     this.reviewedSubmissions.push(submit);
+        //   }
+        // }
       });
   }
 
