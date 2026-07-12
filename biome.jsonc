@@ -1,15 +1,54 @@
-// provide biom configuration file - lsp, formatter and linter
 {
-    "linter": {
-        "enabled": true,
-        "rules": {
-            "recommended": true
-        }
+	"$schema": "https://biomejs.dev/schemas/2.5.3/schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"files": {
+		"includes": ["**", "!!**/dist"]
+	},
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 120,
+    "formatWithErrors": true
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"preset": "recommended"
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single"
+		},
+    "assist": {
+      "enabled": true
     },
-    "formatter": {
-        "lineWidth": 120,
-        "indentStyle": "space",
-        "indentWidth": 6
+    "linter": {
+      "enabled": true
     }
+	},
+  "html": {
+		"formatter": {
+      "enabled": true
+    },
+    "assist": {
+      "enabled": true
+    },
+    "linter": {
+      "enabled": true
+    }
+  },
+	"assist": {
+		"enabled": true,
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
+	}
 }
-
