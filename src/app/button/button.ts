@@ -60,7 +60,7 @@ export class Button {
 
         case 'pinkalt2':
           this.color =
-            'bg-white hover:bg-pink-500 text-pink-500 hover:text-white border-4 border-pink-500';
+            'bg-white hover:bg-pink-500 text-pink-500 hover:text-white border-4 border-b-8 border-r-8 border-pink-500';
           break;
 
         case 'blue':

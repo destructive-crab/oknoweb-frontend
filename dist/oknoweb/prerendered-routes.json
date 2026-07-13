@@ -1,0 +1,10 @@
+{
+  "routes": {
+    "/": {},
+    "/admin/login": {},
+    "/admin/submit": {},
+    "/home": {},
+    "/submissions": {},
+    "/submit": {}
+  }
+}
