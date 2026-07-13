@@ -1,4 +1,5 @@
 DS_STORE
+build.sh
 
 /bazel-out
 /integration/bazel/bazel-*
