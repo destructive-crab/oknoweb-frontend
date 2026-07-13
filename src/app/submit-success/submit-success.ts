@@ -18,16 +18,16 @@ export class SubmitSuccess {
   constructor(private route: ActivatedRoute, @Inject(DOCUMENT) private document: Document) {
     this.route.params.subscribe((params) => {
       let providedID:string = params['id'];
+      this.id = providedID;
 
-      this.http.get(`https://oknoweb.ru/submit/api/submissions/${providedID}`, { observe: 'response' })
-        .subscribe((response: HttpResponse<any>) => {
-          if (response.status != 200) {
-            this.id = 'invalid';
-          }
-          else {
-            this.id = providedID;
-          }
-      });
+      //this.http.get(`https://oknoweb.ru/submit/api/submissions/${providedID}`, { observe: 'response' })
+      // .subscribe((response: HttpResponse<any>) => {
+      //    if (response.status != 200) {
+      //      this.id = 'invalid';
+      //    }
+      //    else {
+      //    }
+      //});
     });
 
   }
