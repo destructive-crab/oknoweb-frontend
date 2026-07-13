@@ -5,7 +5,7 @@ import { Button } from '../button/button';
 
 @Component({
   selector: 'app-submit-card',
-  imports: [Block, Button],
+  imports: [Button],
   templateUrl: './submit-card.html',
   styleUrl: './submit-card.css',
 })

@@ -28,6 +28,8 @@ export class Button {
   @Input('target') public target: string = '_blank';
   @Input('routeLink') public routeLink: string = '';
   @Input('link') public link: string = '';
+  @Input('pX') public pX: string = '4';
+  @Input('customProperties') public customProperties: string = '';
 
   @Output() onClick = new EventEmitter<MouseEvent>();
 
@@ -63,7 +65,7 @@ export class Button {
 
         case 'blue':
           this.color =
-            'font-bold bg-white text-blue-700 border-4 3xl:border-8 border-blue-700 hover:bg-blue-700 hover:text-white';
+            'font-bold bg-white text-blue-700 border-4 border-b-8 border-r-8 3xl:border-8 3xl:border-b-12 border-blue-700 hover:bg-blue-700 hover:text-white';
           break;
 
         case 'bluealt':
@@ -136,11 +138,11 @@ export class Button {
   }
 
   handleClick(event: MouseEvent): void {
-    if (this.routeLink == '' && this.link == '') {
+    if (this.routeLink === '' && this.link === '') {
       this.onClick.emit();
-    } else if (this.routeLink != '') {
+    } else if (this.routeLink !== '') {
       this.openRouteLink();
-    } else if (this.link != '') {
+    } else if (this.link !== '') {
       this.openLink();
     }
   }

@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { SubmitInfo } from '../models/submit.model';
-import { Button } from '../button/button';
-import { SubmitCard } from '../submit-card/submit-card';
 import { FormsModule } from '@angular/forms';
+import { Button } from '../button/button';
+import type { SubmitInfo } from '../models/submit.model';
+import { SubmitCard } from '../submit-card/submit-card';
 
 export enum SortingType {
   OldNew,
@@ -16,17 +16,17 @@ export enum ShowcaseSize {
 }
 
 @Component({
-  selector: 'app-submissions-list',
   imports: [Button, SubmitCard, FormsModule],
+  selector: 'app-submissions-list',
   templateUrl: './submissions-list.html',
 })
 export class SubmissionsList {
   @Input('submissions') submissions: SubmitInfo[] = [];
   @Input('label') label: string = 'submissions';
-  @Input('submitCard') submitCard!: string;
+  // @Input('submitCard') submitCard!: string;
 
-  public sortedSubmissions = this.submissions;
-  public filteredSubmissions = this.submissions;
+  // private sortedSubmissions: SubmitInfo[] = this.submissions;
+  public filteredSubmissions: SubmitInfo[] = this.submissions;
 
   private currentSorting: SortingType = SortingType.NewOld;
   public sortText: string = 'notinit';
@@ -38,7 +38,11 @@ export class SubmissionsList {
   public showcaseSizeText: string = 'notinit';
 
   filter(filter: string) {
-    this.filteredSubmissions = this.sortedSubmissions.filter((item) =>
+    if (filter === '') {
+      this.filteredSubmissions = this.submissions;
+      return;
+    }
+    this.filteredSubmissions = this.submissions.filter((item) =>
       item.name.toLowerCase().includes(filter.toLowerCase()),
     );
 
@@ -57,48 +61,25 @@ export class SubmissionsList {
   }
 
   applySort(type: SortingType) {
+    console.log("INVOOOOKE!!!");
+
     this.currentSorting = type;
 
-    switch (this.currentSorting) {
-      case SortingType.OldNew: {
-        this.sortedSubmissions.sort((a, b) => {
-          const [d1, m1, y1] = a.date.split('/').map(Number);
-          const [d2, m2, y2] = b.date.split('/').map(Number);
+    this.filteredSubmissions.sort((a, b) => {
+      const [d1, m1, y1] = a.date.split('/').map(Number);
+      const [d2, m2, y2] = b.date.split('/').map(Number);
 
-          return new Date(y1, m1 - 1, d1).getTime() - new Date(y2, m2 - 1, d2).getTime();
-        });
-
-        this.filteredSubmissions.sort((a, b) => {
-          const [d1, m1, y1] = a.date.split('/').map(Number);
-          const [d2, m2, y2] = b.date.split('/').map(Number);
-
-          return new Date(y1, m1 - 1, d1).getTime() - new Date(y2, m2 - 1, d2).getTime();
-        });
-
-        this.sortText = 'nf-md-sort_ascending';
-
-        break;
+      if (this.currentSorting === SortingType.OldNew) {
+        return new Date(y1, m1 - 1, d1).getTime() - new Date(y2, m2 - 1, d2).getTime();
+      } else {
+        return new Date(y2, m2 - 1, d2).getTime() - new Date(y1, m1 - 1, d1).getTime();
       }
+    });
 
-      case SortingType.NewOld: {
-        this.sortedSubmissions.sort((a, b) => {
-          const [d1, m1, y1] = a.date.split('/').map(Number);
-          const [d2, m2, y2] = b.date.split('/').map(Number);
-
-          return new Date(y2, m2 - 1, d2).getTime() - new Date(y1, m1 - 1, d1).getTime();
-        });
-
-        this.filteredSubmissions.sort((a, b) => {
-          const [d1, m1, y1] = a.date.split('/').map(Number);
-          const [d2, m2, y2] = b.date.split('/').map(Number);
-
-          return new Date(y2, m2 - 1, d2).getTime() - new Date(y1, m1 - 1, d1).getTime();
-        });
-
-        this.sortText = 'nf-md-sort_descending';
-
-        break;
-      }
+    if (this.currentSorting === SortingType.OldNew) {
+      this.sortText = 'nf-md-sort_ascending';
+    } else {
+      this.sortText = 'nf-md-sort_descending';
     }
   }
 
@@ -153,7 +134,7 @@ export class SubmissionsList {
       }
     }
 
-    if (this.tabsCount == 0) {
+    if (this.tabsCount === 0) {
       this.tabsCount = 1;
     }
 
@@ -178,9 +159,12 @@ export class SubmissionsList {
 
   ngOnInit() {
     this.filteredSubmissions = this.submissions;
-    this.sortedSubmissions = this.submissions;
+    // console.log(this.filteredSubmissions[0]);
 
-    this.applySort(SortingType.NewOld);
+    this.currentSorting = SortingType.NewOld;
+    this.sortText = 'nf-md-sort_descending';
+    // this.applySort(SortingType.NewOld);
+
     this.applyShowcaseSize(ShowcaseSize.Less);
   }
 }
