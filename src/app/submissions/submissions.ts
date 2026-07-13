@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Inject, inject, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -42,8 +42,14 @@ export class Submissions {
     this.document.body.classList.add('bg-[url(/bgmelted.png)]');
     this.document.body.classList.add('bg-repeat');
 
+    const headers = new HttpHeaders({
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    });
+
     this.http
-      .get<SubmitInfo[]>('https://oknoweb.ru/submit/api/submissions')
+      .get<SubmitInfo[]>('https://oknoweb.ru/submit/api/submissions', { headers })
       .subscribe((data: SubmitInfo[]) => {
         this.submissions = data;
 
@@ -52,14 +58,6 @@ export class Submissions {
         }
 
         this.submissionsCount = data.length;
-
-        // for (const submit of data) {
-        //   if (submit.status === 'pending') {
-        //     this.pendingSubmissions.push(submit);
-        //   } else if (submit.status === 'reviewed') {
-        //     this.reviewedSubmissions.push(submit);
-        //   }
-        // }
       });
   }
 

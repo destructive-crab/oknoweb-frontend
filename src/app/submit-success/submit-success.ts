@@ -1,8 +1,9 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Button } from '../button/button';
 import { Block } from '../block/block';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-submit-success',
@@ -12,15 +13,23 @@ import { Block } from '../block/block';
 })
 export class SubmitSuccess {
   public id: string = 'invalid';
+  private http = inject(HttpClient);
 
-  constructor(
-    private route: ActivatedRoute,
-    @Inject(DOCUMENT) private document: Document,
-  ) {
+  constructor(private route: ActivatedRoute, @Inject(DOCUMENT) private document: Document) {
     this.route.params.subscribe((params) => {
-      this.id = params['id'];
-      // Use the id to fetch specific data
+      let providedID:string = params['id'];
+
+      this.http.get(`https://oknoweb.ru/submit/api/submissions/${providedID}`, { observe: 'response' })
+        .subscribe((response: HttpResponse<any>) => {
+          if (response.status != 200) {
+            this.id = 'invalid';
+          }
+          else {
+            this.id = providedID;
+          }
+      });
     });
+
   }
   ngOnInit() {
     this.document.body.classList.add('min-h-screen');

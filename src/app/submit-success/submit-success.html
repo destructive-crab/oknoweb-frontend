@@ -28,9 +28,7 @@
       Заявки рассматриваются в рамках выпусков Submit Review на
       <span
         class="text-pink-500 hover:cursor-pointer hover:text-pink-400"
-        routerLink="/submissions"
-        routerLinkActive="active"
-        rel="noopener noreferrer"
+        href="https://boosty.to/oknoboosty"
         target="_blank"
         >Boosty</span
       >.
@@ -41,9 +39,7 @@
       Чтобы не пропустить контент, связанный с вашей игрок, подпишитесь на наш
       <span
         class="text-pink-500 hover:cursor-pointer hover:text-pink-400"
-        routerLink="/submissions"
-        routerLinkActive="active"
-        rel="noopener noreferrer"
+        href="https://telegram.me/oknogmdv"
         target="_blank"
         >тг-канал
       </span>
@@ -52,6 +48,15 @@
     <br />
 
     <app-button preset="full pinkalt2 t2" routeLink="/home">на главную</app-button>
+  </div>
+</app-block>
+}
+@else {
+<app-block>
+  <div class="text-4xl text-center">
+    <b>
+      Invalid submit ID
+    </b>
   </div>
 </app-block>
 }
