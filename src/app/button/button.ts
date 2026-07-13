@@ -100,7 +100,7 @@ export class Button {
           break;
 
         case 't4':
-          this.textSizeSM = '4xl';
+          this.textSizeSM = '[38px]';
           this.textSizeMD = '6xl';
           this.textSizeXL = '7xl';
 
