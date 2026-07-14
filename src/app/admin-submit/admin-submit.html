@@ -68,10 +68,10 @@
             <b>Инфо:</b> {{submit.additionalInfo}}
           </div>
 
-          <div class="font-main text-xl md:text-2xl mt-4 text-[#000555]"><b>Ссылка на обзор:</b></div>
+          <div *ngIf="submit.reviewLink" class="font-main text-xl md:text-2xl mt-4 text-[#000555]"><b>Ссылка на обзор: </b> <a href="{{submit.reviewLink}}" target="_blank" class="underline text-[#000555]">{{submit.reviewLink}}</a></div>
           <div class="flex flex-row flex-wrap items-center gap-2 mt-2">
             <input [(ngModel)]="reviewEdit[submit.id]" [ngModelOptions]="{standalone: true}" placeholder="Ссылка на обзор" class="font-main bg-white text-blue-700 border-4 border-pink-400 px-3 py-1 text-center text-2xl md:text-2xl w-64" />
-            <app-button preset="full blue t2" (onClick)="postReview(submit.id)">post review</app-button>
+            <app-button preset="full blue t2" (onClick)="postReview(submit.id)">@if (submit.reviewLink) {update review} @else {post review}</app-button>
             <app-button preset="full pinkalt2 t2" (onClick)="removeReview(submit.id)">remove review</app-button>
           </div>
         </div>

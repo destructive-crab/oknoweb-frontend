@@ -60,8 +60,13 @@ export class AdminSubmit {
     fetch('/submit/api/panel/submissions', { headers: this.authHeaders() })
       .then(r => { if (!r.ok) throw new Error(r.status + ''); return r.json(); })
       .then((data: AdminSubmitEntry[]) => {
+        const yosh_astley = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUJcmljayByb2xs';
+        for (const s of data) {
+          if (s.reviewLink === yosh_astley) s.reviewLink = '';
+        }
         this.unverified = data.filter(s => s.status === 'unverified');
         this.verified = data.filter(s => s.status !== 'unverified');
+        this.reviewEdit = {};
         this.loading = false;
         this.cd.detectChanges();
       })
