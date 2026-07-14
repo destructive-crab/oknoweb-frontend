@@ -1,13 +1,13 @@
 import { Component, inject, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Button } from '../button/button';
 import { Block } from '../block/block';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-submit-success',
-  imports: [Button, Block],
+  imports: [Button, Block, RouterLink],
   templateUrl: './submit-success.html',
   styleUrl: './submit-success.css',
 })

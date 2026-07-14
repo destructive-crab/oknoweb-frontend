@@ -51,7 +51,7 @@ export class Submit {
       formData.append('additionalInfo', this.additionalInfo.value);
 
       this.http
-        .post<SubmitInfo>('https://oknoweb.ru/submit/api/new', formData)
+        .post<SubmitInfo>('/submit/api/new', formData)
         .subscribe((response) => {
           this.submitAccepted = true;
           this.router.navigate([`/submit/success/${response.id}`]);
