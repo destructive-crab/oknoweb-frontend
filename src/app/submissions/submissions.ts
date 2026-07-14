@@ -1,6 +1,6 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, Inject, inject, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, inject, PLATFORM_ID, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Block } from '../block/block';
@@ -21,12 +21,10 @@ export enum SortingType {
 export class Submissions {
   private http = inject(HttpClient);
 
-  public submissions: SubmitInfo[] = [];
-  // public pendingSubmissions: SubmitInfo[] = [];
-  // public reviewedSubmissions: SubmitInfo[] = [];
+  public submissions = signal<SubmitInfo[]>([]);
 
   public pending: boolean = true;
-  public submissionsCount: number = 0;
+  public submissionsCount = signal(0);
 
   openPending() {
     this.pending = true;
@@ -42,22 +40,12 @@ export class Submissions {
     this.document.body.classList.add('bg-[url(/bgmelted.png)]');
     this.document.body.classList.add('bg-repeat');
 
-    const headers = new HttpHeaders({
-      'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
-      'Pragma': 'no-cache',
-      'Expires': '0'
-    });
-
     this.http
-      .get<SubmitInfo[]>('https://oknoweb.ru/submit/api/submissions', { headers })
+      .get<SubmitInfo[]>('/submit/api/submissions')
       .subscribe((data: SubmitInfo[]) => {
-        this.submissions = data;
+        this.submissions.set(data);
 
-        if (isPlatformServer(this.platformId)) {
-          this.submissions.reverse();
-        }
-
-        this.submissionsCount = data.length;
+        this.submissionsCount.set(data.length);
       });
   }
 

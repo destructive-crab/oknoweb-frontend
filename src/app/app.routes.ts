@@ -11,10 +11,7 @@ export const routes: Routes = [
   { path: 'home', component: Home },
   { path: 'submit', component: Submit },
   { path: 'submissions', component: Submissions },
-  {
-    path: 'submit/success/:id',
-    component: SubmitSuccess,
-  },
+  { path: 'submit/success/:id', component: SubmitSuccess, },
   {
     path: 'admin/login',
     loadComponent: () => import('./admin-login/admin-login').then(m => m.AdminLogin)

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, computed, Input, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Button } from '../button/button';
 import type { SubmitInfo } from '../models/submit.model';
@@ -23,9 +23,7 @@ export enum ShowcaseSize {
 export class SubmissionsList {
   @Input('submissions') submissions: SubmitInfo[] = [];
   @Input('label') label: string = 'submissions';
-  // @Input('submitCard') submitCard!: string;
 
-  // private sortedSubmissions: SubmitInfo[] = this.submissions;
   public filteredSubmissions: SubmitInfo[] = this.submissions;
 
   private currentSorting: SortingType = SortingType.NewOld;
@@ -61,8 +59,6 @@ export class SubmissionsList {
   }
 
   applySort(type: SortingType) {
-    console.log("INVOOOOKE!!!");
-
     this.currentSorting = type;
 
     this.filteredSubmissions.sort((a, b) => {
@@ -159,12 +155,16 @@ export class SubmissionsList {
 
   ngOnInit() {
     this.filteredSubmissions = this.submissions;
-    // console.log(this.filteredSubmissions[0]);
 
     this.currentSorting = SortingType.NewOld;
     this.sortText = 'nf-md-sort_descending';
-    // this.applySort(SortingType.NewOld);
+    this.applySort(SortingType.NewOld);
 
     this.applyShowcaseSize(ShowcaseSize.Less);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.filter('');
+    console.log('change')
   }
 }

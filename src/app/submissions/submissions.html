@@ -43,59 +43,24 @@
         <p class="mt-2 mb-2">
           Если ты игрок - здесь ты найдешь свежие инди-игры и новых авторов. Играй, оставляй фидбек, помогай талантам
           расти - и становись частью нашего сообщества
+
         </p>
         <hr class="border-blue-700">
         <hr class="border-blue-700">
         <p class="mt-2 mb-2 font-black text-3xl">Всего игр</p>
         <p class="mt-2 mb-2 font-black text-5xl">
-          {{submissionsCount}}
+          {{submissionsCount()}}
         </p>
       </div>
 
       <br />
-      <!-- <app-button preset="full pinkalt2 t2" routeLink="/home">на главную</app-button> -->
-      <!-- <br /> -->
-      <!-- <br /> -->
     </app-block>
 
   <app-block color="pink-400" bg-color="alpha">
-    <!-- <div class="center-wrap flex flex-col items-center justify-center"> -->
-    <!--   <div class="flex w-full"> -->
-    <!--     <app-button -->
-    <!--       preset="full pinkalt t2" -->
-    <!--       (onClick)="openPending()" -->
-    <!--       class="w-full text-center mr-1" -->
-    <!--     > -->
-    <!--       <b> @if (pending){ >в очереди< } @else { в очереди }</b> -->
-    <!--     </app-button> -->
-    <!--     <app-button -->
-    <!--       preset="full pinkalt t2" -->
-    <!--       (onClick)="openReviewed()" -->
-    <!--       class="w-full text-center ml-1" --> <!--     > -->
-    <!--       <b> @if (!pending){ >оцененные< } @else { оцененные }</b> -->
-    <!--     </app-button> -->
-    <!--   </div> -->
-    <!-- </div> -->
-
     <app-submissions-list
-      [submissions]="submissions"
+      [submissions]="submissions()"
+      [label]="submissionsCount().toString()"
       label="reviewed"
       class="w-full"
     ></app-submissions-list>
-    <!-- @if (!pending){ -->
-    <!-- <app-submissions-list -->
-    <!--   [submissions]="reviewedSubmissions" -->
-    <!--   label="reviewed" -->
-    <!--   submitCard="app-reviewed-submit" -->
-    <!--   class="w-full" -->
-    <!-- ></app-submissions-list> -->
-    <!-- } @else{ -->
-
-    <!-- <app-submissions-list -->
-    <!--   [submissions]="pendingSubmissions" -->
-    <!--   label="pending" -->
-    <!--   submitCard="app-pending-submit" -->
-    <!--   class="w-full" -->
-    <!-- ></app-submissions-list> -->
-    <!-- } -->
   </app-block>

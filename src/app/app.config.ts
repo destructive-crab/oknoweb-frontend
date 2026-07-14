@@ -12,7 +12,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideClientHydration(
       withHttpTransferCacheOptions({
-        filter: (req) => true,
+        filter: (req) => false,
       })
     )
   ]
