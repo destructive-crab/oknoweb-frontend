@@ -12,7 +12,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideClientHydration(
       withHttpTransferCacheOptions({
-        filter: (req) => false,
+        filter: (req) => !req.url.includes('submit/api'),
       })
     )
   ]
