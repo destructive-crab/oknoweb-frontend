@@ -49,18 +49,20 @@
         <hr class="border-blue-700">
         <p class="mt-2 mb-2 font-black text-3xl">Всего игр</p>
         <p class="mt-2 mb-2 font-black text-5xl">
-          {{submissionsCount()}}
+          {{submissionsCountPrerequest()}}
         </p>
       </div>
 
       <br />
     </app-block>
 
+  @if (submissions) {
   <app-block color="pink-400" bg-color="alpha">
     <app-submissions-list
-      [submissions]="submissions()"
-      [label]="submissionsCount().toString()"
+      [submissions]="submissions"
+      [label]="submissions.length.toString()"
       label="reviewed"
       class="w-full"
     ></app-submissions-list>
   </app-block>
+  }

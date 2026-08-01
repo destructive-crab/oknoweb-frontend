@@ -156,8 +156,11 @@ export class SubmissionsList {
   ngOnInit() {
     this.filteredSubmissions = this.submissions;
 
-    this.currentSorting = SortingType.NewOld;
-    this.sortText = 'nf-md-sort_descending';
+    console.log("init!");
+    console.log(this.filteredSubmissions.length);
+
+    // this.currentSorting = SortingType.NewOld;
+    // this.sortText = 'nf-md-sort_descending';
     this.applySort(SortingType.NewOld);
 
     this.applyShowcaseSize(ShowcaseSize.Less);

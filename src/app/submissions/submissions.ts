@@ -1,5 +1,5 @@
-import { DOCUMENT, isPlatformServer } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CommonModule, DOCUMENT, isPlatformServer } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, Inject, inject, PLATFORM_ID, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -14,17 +14,17 @@ export enum SortingType {
 }
 
 @Component({
-  imports: [FormsModule, SubmissionsList, Button, Block, RouterModule],
+  imports: [FormsModule, SubmissionsList, Button, Block, RouterModule, CommonModule],
   selector: 'app-submissions',
   templateUrl: './submissions.html',
 })
 export class Submissions {
   private http = inject(HttpClient);
 
-  public submissions = signal<SubmitInfo[]>([]);
+  public submissions: SubmitInfo[] | undefined;
 
   public pending: boolean = true;
-  public submissionsCount = signal(0);
+  public submissionsCountPrerequest = signal(67);
 
   openPending() {
     this.pending = true;
@@ -40,12 +40,14 @@ export class Submissions {
     this.document.body.classList.add('bg-[url(/bgmelted.png)]');
     this.document.body.classList.add('bg-repeat');
 
+    // todo: submissionsCountPrerequest getting by api
+    // todo: replace http.get by ServerRouter
+
     this.http
       .get<SubmitInfo[]>('/submit/api/submissions')
       .subscribe((data: SubmitInfo[]) => {
-        this.submissions.set(data);
-
-        this.submissionsCount.set(data.length);
+        this.submissions = data;
+        this.submissionsCountPrerequest.set(data.length);
       });
   }
 
