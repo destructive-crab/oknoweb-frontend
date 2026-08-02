@@ -17,68 +17,15 @@
       </div>
 
       @if (showPending) {
-      <div *ngIf="unverified?.length === 0" class="font-main text-2xl md:text-3xl my-4 text-center">Нет новых заявок</div>
-      <div *ngFor="let submit of unverified" class="border-8 border-blue-700 border-double bg-white w-full mb-6 p-5 flex flex-col md:flex-row justify-between items-center md:gap-5">
-        <div class="flex-1 pr-6">
-          <div class="font-main text-3xl md:text-4xl text-[#000555]">{{submit.name}}</div>
-          <div class="font-main text-xl md:text-2xl mb-2 text-[#000555]"><b>ID:</b> {{submit.id}}</div>
-          <div class="font-main text-xl md:text-2xl mb-2 text-[#000555]">
-            <b>Контакты:</b>
-            <span (click)="toggleMask(submit.id)" tabindex="0"
-                  class="contact-toggle cursor-pointer select-none border-b border-dashed border-blue-900 inline-block"
-                  [class.is-visible]="maskToggle[submit.id]"
-                  role="button" aria-label="Показать контакты">
-              <span class="contact-mask" *ngIf="!maskToggle[submit.id]">########</span>
-              <span class="contact-value" *ngIf="maskToggle[submit.id]">{{ submit.contact }}</span>
-            </span>
-          </div>
-          <div class="font-main text-xl md:text-2xl mb-2 text-[#000555]">
-            <b>Ссылка:</b> <a href="{{submit.link}}" target="_blank" class="underline text-[#000555]">{{submit.link}}</a>
-          </div>
-          <div class="font-main text-xl md:text-2xl mb-2 text-[#000555]">
-            <b>Инфо:</b> {{submit.additionalInfo}}
-          </div>
-        </div>
-        <div class="flex flex-col gap-2 md:gap-2 items-center min-w-[180px]">
-          <app-button preset="full blue t2" (onClick)="approve(submit.id)" class="w-full">approve</app-button>
-          <app-button preset="full pinkalt2 t2" (onClick)="reject(submit.id)" class="w-full">reject</app-button>
-        </div>
-      </div>
+        <div *ngIf="unverified?.length === 0" class="font-main text-2xl md:text-3xl my-4 text-center">Нет новых заявок</div>
+        @for (submit of unverified; track submit.id) {
+          <app-admin-submit-card class="w-full mb-6" [submitInfo]="submit" (changed)="loadSubmits()"/>
+        }
       } @else {
-      <div *ngIf="verified?.length === 0" class="font-main text-2xl md:text-3xl my-4 text-center">Принятых сабмитов нет</div>
-
-      <div *ngFor="let submit of verified" class="border-8 border-blue-700 border-double bg-white w-full mb-6 p-5 flex flex-col md:flex-row justify-between items-stretch md:gap-5">
-        <div class="flex-1 pr-6">
-          <div class="font-main text-3xl md:text-4xl text-[#000555]">{{submit.name}}</div>
-          <div class="font-main text-xl md:text-2xl mb-2 text-[#000555]"><b>ID:</b> {{submit.id}}</div>
-          <div class="font-main text-xl md:text-2xl mb-2 text-[#000555]">
-            <b>Контакты:</b>
-            <span (click)="toggleMask(submit.id)" tabindex="0"
-                  class="contact-toggle cursor-pointer select-none border-b border-dashed border-blue-900 inline-block"
-                  [class.is-visible]="maskToggle[submit.id]"
-                  role="button" aria-label="Показать контакты">
-              <span class="contact-mask" *ngIf="!maskToggle[submit.id]">########</span>
-              <span class="contact-value" *ngIf="maskToggle[submit.id]">{{ submit.contact }}</span>
-            </span>
-          </div>
-          <div class="font-main text-xl md:text-2xl mb-2 text-[#000555]">
-            <b>Ссылка:</b> <a href="{{submit.link}}" target="_blank" class="underline text-[#000555]">{{submit.link}}</a>
-          </div>
-          <div class="font-main text-xl md:text-2xl mb-2 text-[#000555]">
-            <b>Инфо:</b> {{submit.additionalInfo}}
-          </div>
-
-          <div *ngIf="submit.reviewLink" class="font-main text-xl md:text-2xl mt-4 text-[#000555]"><b>Ссылка на обзор: </b> <a href="{{submit.reviewLink}}" target="_blank" class="underline text-[#000555]">{{submit.reviewLink}}</a></div>
-          <div class="flex flex-row flex-wrap items-center gap-2 mt-2">
-            <input [(ngModel)]="reviewEdit[submit.id]" [ngModelOptions]="{standalone: true}" placeholder="Ссылка на обзор" class="font-main bg-white text-blue-700 border-4 border-pink-400 px-3 py-1 text-center text-2xl md:text-2xl w-64" />
-            <app-button preset="full blue t2" (onClick)="postReview(submit.id)">@if (submit.reviewLink) {update review} @else {post review}</app-button>
-            <app-button preset="full pinkalt2 t2" (onClick)="removeReview(submit.id)">remove review</app-button>
-          </div>
-        </div>
-        <div class="flex flex-col justify-end items-center min-w-[180px]">
-          <app-button preset="full pinkalt2 t2" (onClick)="reject(submit.id)" class="w-full">reject</app-button>
-        </div>
-      </div>
+        <div *ngIf="verified?.length === 0" class="font-main text-2xl md:text-3xl my-4 text-center">Принятых сабмитов нет</div>
+        @for (submit of verified; track submit.id) {
+          <app-admin-submit-card class="w-full mb-6" [submitInfo]="submit" (changed)="loadSubmits()"/>
+        }
       }
 
     </div>

@@ -3,30 +3,21 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Block } from '../block/block';
 import { Button } from '../button/button';
-
-export interface AdminSubmitEntry {
-  id: number;
-  name: string;
-  contact: string;
-  link: string;
-  additionalInfo: string;
-  status: string;
-  reviewLink?: string;
-}
+import { PrivateSubmitInfo } from '../models/submit.model';
+import { AdminSubmitCard } from '../admin-submit-card/admin-submit-card';
 
 @Component({
   selector: 'app-admin-submit',
   standalone: true,
-  imports: [Block, Button, CommonModule, FormsModule],
+  imports: [Block, Button, CommonModule, FormsModule, AdminSubmitCard],
   templateUrl: './admin-submit.html',
   styleUrl: './admin-submit.css',
 })
 export class AdminSubmit {
-  unverified: AdminSubmitEntry[] = [];
-  verified: AdminSubmitEntry[] = [];
+  unverified: PrivateSubmitInfo[] = [];
+  verified: PrivateSubmitInfo[] = [];
   loading = false;
   error: string|null = null;
-  reviewEdit: { [id: number]: string } = {};
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private cd: ChangeDetectorRef,
@@ -55,18 +46,18 @@ export class AdminSubmit {
   }
 
   loadSubmits() {
+    console.log("loading...");
     this.loading = true;
     this.cd.detectChanges();
     fetch('/submit/api/panel/submissions', { headers: this.authHeaders() })
       .then(r => { if (!r.ok) throw new Error(r.status + ''); return r.json(); })
-      .then((data: AdminSubmitEntry[]) => {
+      .then((data: PrivateSubmitInfo[]) => {
         const yosh_astley = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUJcmljayByb2xs';
         for (const s of data) {
           if (s.reviewLink === yosh_astley) s.reviewLink = '';
         }
         this.unverified = data.filter(s => s.status === 'unverified');
         this.verified = data.filter(s => s.status !== 'unverified');
-        this.reviewEdit = {};
         this.loading = false;
         this.cd.detectChanges();
       })
@@ -77,32 +68,8 @@ export class AdminSubmit {
       });
   }
 
-  async approve(id: number) {
-    await fetch(`/submit/api/panel/submissions/pend/${id}`, { method: 'POST', headers: this.authHeaders() });
-    this.loadSubmits();
-  }
-  async reject(id: number) {
-    await fetch(`/submit/api/panel/submissions/reject/${id}`, { method: 'POST', headers: this.authHeaders() });
-    this.loadSubmits();
-  }
-  async postReview(id: number) {
-    const link = this.reviewEdit[id] || '';
-    await fetch(`/submit/api/panel/submissions/review/set/${id}`, {
-      method: 'POST',
-      headers: { ...this.authHeaders(), 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `reviewLink=${encodeURIComponent(link)}`,
-    });
-    this.loadSubmits();
-  }
-  async removeReview(id: number) {
-    await fetch(`/submit/api/panel/submissions/pend/${id}`, { method: 'POST', headers: this.authHeaders() });
-    this.loadSubmits();
-  }
 
   showPending: boolean = true;
   openPending() { this.showPending = true; }
   openVerified() { this.showPending = false; }
-
-  maskToggle: { [id: number]: boolean } = {};
-  toggleMask(id: number) { this.maskToggle[id] = !this.maskToggle[id]; }
 }
