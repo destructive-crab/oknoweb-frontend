@@ -42,7 +42,7 @@ export class Submissions {
   // submissions = signal({} as SubmitInfo[]);
 
   public pending: boolean = true;
-  public submissionsCountPrerequest = signal(0);
+  // public submissionsCountPrerequest = signal(0);
 
   openPending() {
     this.pending = true;
