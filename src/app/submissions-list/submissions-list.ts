@@ -1,4 +1,4 @@
-import { Component, computed, Input, SimpleChanges } from '@angular/core';
+import { Component, computed, Input, type Signal, type SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Button } from '../button/button';
 import type { SubmitInfo } from '../models/submit.model';
@@ -156,9 +156,6 @@ export class SubmissionsList {
   ngOnInit() {
     this.filteredSubmissions = this.submissions;
 
-    console.log("init!");
-    console.log(this.filteredSubmissions.length);
-
     // this.currentSorting = SortingType.NewOld;
     // this.sortText = 'nf-md-sort_descending';
     this.applySort(SortingType.NewOld);
@@ -168,6 +165,5 @@ export class SubmissionsList {
 
   ngOnChanges(changes: SimpleChanges) {
     this.filter('');
-    console.log('change')
   }
 }
