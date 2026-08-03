@@ -1,9 +1,10 @@
-import { RenderMode, ServerRoute } from '@angular/ssr';
+import {Routes} from '@angular/router';
+import { RenderMode, type ServerRoute } from '@angular/ssr';
 
 export const serverRoutes: ServerRoute[] = [
   {
     path: 'submissions',
-    renderMode: RenderMode.Server
+    renderMode: RenderMode.Server,
   },
   {
     path: 'submit/success/:id',

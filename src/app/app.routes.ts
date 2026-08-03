@@ -1,16 +1,25 @@
-import { Routes } from '@angular/router';
+import type { Routes } from '@angular/router';
 import { Home } from './home/home';
+import { Submissions, submissionsListResolver } from './submissions/submissions'
 import { Submit } from './submit/submit';
-import { Submissions } from './submissions/submissions';
 import { SubmitSuccess } from './submit-success/submit-success';
-import { RenderMode } from '@angular/ssr';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
   { path: 'home', component: Home },
-  { path: 'submit', component: Submit },
-  { path: 'submissions', component: Submissions },
+  {
+    path: 'submit',
+    component: Submit,
+  },
+  {
+    path: 'submissions',
+    component: Submissions,
+    resolve: {
+      submissions: submissionsListResolver
+    },
+  },
   { path: 'submit/success/:id', component: SubmitSuccess, },
   {
     path: 'admin/login',
