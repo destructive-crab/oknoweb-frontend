@@ -9,21 +9,21 @@
 
       <div class="flex w-full mb-4">
         <app-button preset="full pinkalt t2" (onClick)="openPending()" class="w-full text-center mr-1">
-          <b> @if (showPending) { >Pending< } @else { Pending }</b>
+          <b> @if (!showVerified) { >Pending< } @else { Pending }</b>
         </app-button>
         <app-button preset="full pinkalt t2" (onClick)="openVerified()" class="w-full text-center ml-1">
-          <b> @if (!showPending) { >Verified< } @else { Verified }</b>
+          <b> @if (showVerified) { >Verified< } @else { Verified }</b>
         </app-button>
       </div>
 
-      @if (showPending) {
-        <div *ngIf="unverified?.length === 0" class="font-main text-2xl md:text-3xl my-4 text-center">Нет новых заявок</div>
-        @for (submit of unverified; track submit.id) {
+      @if (showVerified) {
+        <div *ngIf="verified?.length === 0" class="font-main text-2xl md:text-3xl my-4 text-center">Принятых сабмитов нет</div>
+        @for (submit of verified; track submit.id) {
           <app-admin-submit-card class="w-full mb-6" [submitInfo]="submit" (changed)="loadSubmits()"/>
         }
       } @else {
-        <div *ngIf="verified?.length === 0" class="font-main text-2xl md:text-3xl my-4 text-center">Принятых сабмитов нет</div>
-        @for (submit of verified; track submit.id) {
+        <div *ngIf="unverified?.length === 0" class="font-main text-2xl md:text-3xl my-4 text-center">Нет новых заявок</div>
+        @for (submit of unverified; track submit.id) {
           <app-admin-submit-card class="w-full mb-6" [submitInfo]="submit" (changed)="loadSubmits()"/>
         }
       }

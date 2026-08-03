@@ -1,10 +1,11 @@
-import { Component, Inject, ChangeDetectorRef } from '@angular/core';
+import { Component, Inject, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Block } from '../block/block';
 import { Button } from '../button/button';
 import { PrivateSubmitInfo } from '../models/submit.model';
 import { AdminSubmitCard } from '../admin-submit-card/admin-submit-card';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-submit',
@@ -17,11 +18,19 @@ export class AdminSubmit {
   unverified: PrivateSubmitInfo[] = [];
   verified: PrivateSubmitInfo[] = [];
   loading = false;
-  error: string|null = null;
+  error: string | null = null;
+
+  showVerified: boolean = false;
+
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private cd: ChangeDetectorRef,
-  ) {}
+  ) {
+    this.showVerified = this.route.snapshot.queryParamMap.keys.includes("verified");
+  }
 
   ngOnInit() {
     this.document.body.classList.add('min-h-screen');
@@ -46,7 +55,6 @@ export class AdminSubmit {
   }
 
   loadSubmits() {
-    console.log("loading...");
     this.loading = true;
     this.cd.detectChanges();
     fetch('/submit/api/panel/submissions', { headers: this.authHeaders() })
@@ -68,8 +76,19 @@ export class AdminSubmit {
       });
   }
 
+  private updateUrl() {
+    this.router.navigate([], {
+      queryParams: this.showVerified ? {"verified": ""} : {},
+      queryParamsHandling: "replace"
+    })
+  }
 
-  showPending: boolean = true;
-  openPending() { this.showPending = true; }
-  openVerified() { this.showPending = false; }
+  openPending() {
+    this.showVerified = false;
+    this.updateUrl();
+  }
+  openVerified() {
+    this.showVerified = true;
+    this.updateUrl();
+  }
 }
