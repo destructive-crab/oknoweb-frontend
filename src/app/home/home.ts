@@ -2,16 +2,16 @@ import { Component, Inject } from '@angular/core';
 import { Button } from '../button/button';
 import { Block } from '../block/block';
 import { interval, map, Observable } from 'rxjs'
-import { AsyncPipe, DOCUMENT } from '@angular/common';
+import { AsyncPipe, DatePipe, DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  imports: [Button, Block, AsyncPipe],
+  imports: [Button, Block, AsyncPipe, DatePipe],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home {
-  targetDate = new Date('2026-08-07T23:00:00').getTime();
+  targetDate = new Date('2026-08-09T23:00:00').getTime();
 
     timeLeft$: Observable<string> = interval(1000).pipe(
       map(() => {
