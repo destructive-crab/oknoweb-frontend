@@ -11,43 +11,28 @@ import { Router } from '@angular/router';
 export class Button {
   private router = inject(Router);
 
-  @Input('hpSM') public hpSM: string = '16';
-  @Input('hpMD') public hpMD: string = '20';
-  @Input('hpXL') public hpXl: string = '20';
-
-  @Input('wSM') public wSM: string = '';
-  @Input('wMD') public wMD: string = '';
-
-  @Input('textSizeSM') public textSizeSM: string = '';
-  @Input('textSizeMD') public textSizeMD: string = '';
-  @Input('textSizeXL') public textSizeXL: string = '';
-
   @Input('color') public color: string = '';
   @Input('preset') public preset: string = '';
 
   @Input('target') public target: string = '_blank';
   @Input('routeLink') public routeLink: string = '';
   @Input('link') public link: string = '';
-  @Input('pX') public pX: string = '4';
   @Input('customProperties') public customProperties: string = '';
 
   @Output() onClick = new EventEmitter<MouseEvent>();
 
-  ngOnInit() {
-    //defaults
-    this.textSizeSM = '3';
-    this.textSizeMD = '4';
+  public classes: string[] = [];
 
-    this.hpSM = '12';
-    this.hpMD = '16';
+  ngOnInit() {
+    let textClasses: string[] = ['text-3xl', 'md:text-4xl'];
+    let widthClasses: string[] = [];
 
     let parts: string[] = this.preset.split(' ');
 
     for (let part of parts) {
       switch (part) {
         case 'full':
-          this.wSM = 'full';
-          this.wMD = 'full';
+          widthClasses = ['w-full'];
           break;
 
         case 'pink':
@@ -73,59 +58,42 @@ export class Button {
           break;
 
         case 't1':
-          this.textSizeSM = '2xl';
-          this.textSizeMD = '3xl';
-          this.textSizeXL = '4xl';
-
-          this.hpSM = '10';
-          this.hpMD = '10';
+          textClasses = ['text-2xl', 'md:text-3xl', '3xl:text-4xl'];
           break;
 
         case 't2':
-          this.textSizeSM = '3xl';
-          this.textSizeMD = '4xl';
-          this.textSizeXL = '6xl';
-
-          this.hpSM = '12';
-          this.hpMD = '14';
+          textClasses = ['text-3xl', 'md:text-4xl', '3xl:text-6xl'];
           break;
 
         case 't3':
-          this.textSizeSM = '4xl';
-          this.textSizeMD = '5xl';
-          this.textSizeXL = '6xl';
-
-          this.hpSM = '16';
-          this.hpMD = '18';
+          textClasses = ['text-4xl', 'md:text-5xl', '3xl:text-6xl'];
           break;
 
         case 't4':
-          this.textSizeSM = '[38px]';
-          this.textSizeMD = '6xl';
-          this.textSizeXL = '7xl';
-
-          this.hpSM = '18';
-          this.hpMD = '20';
+          textClasses = ['text-[38px]', 'md:text-6xl', '3xl:text-7xl'];
           break;
 
         case 't5':
-          this.textSizeSM = '5xl';
-          this.textSizeMD = '7xl';
-          this.textSizeXL = '8xl';
-
-          this.hpSM = '24';
-          this.hpMD = '2';
+          textClasses = ['text-5xl', 'md:text-7xl', '3xl:text-8xl'];
           break;
 
         case 'tvw':
-          this.textSizeSM = '[2vw]';
-          this.textSizeMD = '[2vw]';
-          this.textSizeXL = '[2vw]';
-
-          this.hpSM = '50';
-          this.hpMD = '40';
+          textClasses = ['text-[2vw]', 'md:text-[2vw]', '3xl:text-[2vw]'];
           break;
       }
+    }
+
+    this.classes = [
+      'items-center',
+      'font-main',
+      this.color,
+      ...widthClasses,
+      ...textClasses,
+      'hover:cursor-pointer',
+    ];
+
+    if (this.customProperties !== '') {
+      this.classes.push(this.customProperties);
     }
   }
 

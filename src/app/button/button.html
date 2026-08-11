@@ -3,25 +3,17 @@
 </ng-template>
 
 @if (this.link != '') {
-<a href="{{this.link}}" target="{{this.target}}">
-  <button
-    class="{{color}} items-center font-main text-{{textSizeSM}} md:text-{{textSizeMD}} 3xl:text-{{textSizeXL}} w-{{wSM}} md:w-{{wMD}} hover:cursor-pointer {{customProperties}}"
-  >
+  <a href="{{ this.link }}" target="{{ this.target }}">
+    <button [ngClass]="classes">
+      <ng-container *ngTemplateOutlet="buttonNGTemplate" />
+    </button>
+  </a>
+} @else if (this.routeLink != '') {
+  <button [ngClass]="classes" (click)="handleClick($event)">
     <ng-container *ngTemplateOutlet="buttonNGTemplate" />
   </button>
-</a>
-} @else if (this.routeLink != '') {
-<button
-  class="{{color}} items-center font-main text-{{textSizeSM}} md:text-{{textSizeMD}} 3xl:text-{{textSizeXL}} w-{{wSM}} md:w-{{wMD}} hover:cursor-pointer {{customProperties}}"
-  (click)="handleClick($event)"
->
-  <ng-container *ngTemplateOutlet="buttonNGTemplate" />
-</button>
 } @else {
-<button
-  class="{{color}} items-center font-main text-{{textSizeSM}} md:text-{{textSizeMD}} 4xl:text-{{textSizeXL}} w-{{wSM}} md:w-{{wMD}} hover:cursor-pointer {{customProperties}}"
-  (click)="handleClick($event)"
->
-  <ng-container *ngTemplateOutlet="buttonNGTemplate" />
-</button>
+  <button [ngClass]="classes" (click)="handleClick($event)">
+    <ng-container *ngTemplateOutlet="buttonNGTemplate" />
+  </button>
 }
