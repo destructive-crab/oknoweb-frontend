@@ -1,25 +1,12 @@
-import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { Button } from '../../../shared/components/button/button';
-import { PanelService } from '../../../core/services/panel-service';
+import { PanelPage } from '../panel-page';
 
 @Component({
   selector: 'app-panel-root',
   imports: [Button],
   templateUrl: './panel-root.html',
 })
-export class PanelRoot {
-  private router = inject(Router);
-  private panelService = inject(PanelService);
-
-  ngOnInit()
-  {
-    this.panelService.validateLogin().subscribe({
-          next: () => {},
-          error: () => {
-            this.router.navigate(['/panel/login']);
-          }
-        }
-    );
-  }
+export class PanelRoot extends PanelPage {
+  protected override validationPassed(): void {}
 }

@@ -6,15 +6,15 @@ import { Block } from "../../../../shared/components/block/block";
 import { Button } from "../../../../shared/components/button/button";
 import { PanelTagCategory } from "../panel-tag-category/panel-tag-category";
 import { SubmitService } from "../../../../core/services/submit-service";
-import { PanelService } from "../../../../core/services/panel-service";
 import { TagCategoryInfo, TagInfo } from "../../../../core/models/submit.model";
+import { PanelPage } from "../../panel-page";
 
 @Component({
   selector: 'app-panel-submit-tags',
   imports: [PanelTag, Block, Button, PanelTagCategory, PanelTagCreator, PanelTagCategoryCreator],
   templateUrl: './panel-submit-tags.html',
 })
-export class PanelSubmitTags {
+export class PanelSubmitTags extends PanelPage {
   loadingContent = computed(() => this.contentLoaded == 2);
 
   private _tags = signal<TagInfo[]>([]);
@@ -27,8 +27,7 @@ export class PanelSubmitTags {
 
   private submitService = inject(SubmitService);
 
-  ngOnInit()
-  {
+  protected override validationPassed(): void {
     this.loadContent();
   }
 

@@ -40,7 +40,7 @@ export class PanelLogin {
         localStorage.setItem('admin_username', this.username);
         localStorage.setItem('admin_password', this.password);
 
-        this.router.navigate(['/admin/submit']);
+        this.router.navigate(['/panel']);
       },
       error: () => {
         this.loginFailed = true;

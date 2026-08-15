@@ -7,13 +7,14 @@ import { Button } from '../../../../shared/components/button/button';
 import { Block } from '../../../../shared/components/block/block';
 import { PrivateSubmitInfo } from '../../../../core/models/submit.model';
 import { PanelService } from '../../../../core/services/panel-service';
+import { PanelPage } from '../../panel-page';
 
 @Component({
   selector: 'app-panel-submit',
   imports: [Block, Button, CommonModule, FormsModule, PanelSubmitCard],
   templateUrl: './panel-submit.html',
 })
-export class PanelSubmit {
+export class PanelSubmit extends PanelPage {
   private _loading = signal(false);
   readonly loading = this._loading.asReadonly();
 
@@ -34,20 +35,16 @@ export class PanelSubmit {
   private _unverified = signal<PrivateSubmitInfo[]>([]);
   readonly unverifiedSubmissions = this._unverified.asReadonly();
 
-
   private _error: string | null = null;
 
-
   private route = inject(ActivatedRoute);
-  private router = inject(Router);
-  private panelService = inject(PanelService);
 
   constructor(@Inject(DOCUMENT) private document: Document) {
+    super();
     this._showVerified.set(this.route.snapshot.queryParamMap.keys.includes("verified"));
   }
 
-  ngOnInit()
-  {
+  protected override validationPassed(): void {
     this.document.body.classList.add('min-h-screen');
     this.document.body.classList.add('bg-[url(/background.png)]');
     this.document.body.classList.add('bg-repeat');
