@@ -1,0 +1,37 @@
+@if (this.isLoading())
+{
+  <div class="font-main font-bold text-center">Loading...</div>
+}
+@else
+{
+
+<details>
+  <summary class="select-none cursor-pointer font-main text-3xl md:text-5xl font-bold text-blue-500 text-center mt-1 mb-1"> Теги ≡</summary>
+
+  @for (category of categories; track $index) {
+    @if ((availableTags.get(category) || []).length > 0)
+    {
+      <div class="border-2 border-blue-400 mb-3">
+        <div class="font-main text-xl md:text-3xl font-bold text-blue-500 text-center mb-1"> {{category}} </div>
+        <div class="flex flex-wrap justify-center mb-3">
+          @for (tag of availableTags.get(category); track $index)
+          {
+            <button
+                (click)="toggleTag(tag)"
+                [ngClass]="
+                    this.selectedTags.has(tag) ?
+                      'bg-blue-600 text-white font-bold'
+                      :
+                      'bg-white text-blue-600'
+                    "
+                class="font-main font-bold cursor-pointer text-xl md:text-2xl px-2 mx-1 mb-2 border-3 border-blue-600"
+            >
+              {{tag}}
+            </button>
+          }
+        </div>
+      </div>
+    }
+  }
+</details>
+}

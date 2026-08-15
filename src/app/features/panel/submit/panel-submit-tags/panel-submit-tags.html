@@ -1,0 +1,39 @@
+<app-block class="font-main font-bold text-2xl">
+  <div class="text-4xl font-main font-bold text-center text-blue-600"> РЕДАКТИРОВАНИЕ ТЕГОВ И КАТЕГОРИЙ</div>
+  <div class="flex w-full mb-4">
+    <app-button preset="full bluealt2 t1" routeLink="panel" class="w-full text-center">
+      <b> панель </b>
+    </app-button>
+    <app-button preset="full bluealt2 t1" routeLink="panel/submit" class="w-full text-center">
+      <b> панель сабмитов </b>
+    </app-button>
+  </div>
+
+  @if (!loadingContent()) {
+    <h1 class="text-3xl text-center"> ТЕГИ</h1>
+
+    <app-panel-tag-creator (created)="loadContent()"></app-panel-tag-creator>
+
+    <br>
+    <br>
+
+    @for (tag of tags(); track $index) {
+      <div class="w-full">
+        <app-panel-tag [tag]="tag" (changed)="loadContent()"></app-panel-tag>
+      </div>
+    }
+
+    <br>
+
+    <h1 class="text-3xl text-center"> КАТЕГОРИИ </h1>
+    <app-panel-tag-category-creator (created)="loadContent()"></app-panel-tag-category-creator>
+    <br>
+    <br>
+    @for (category of categories(); track $index) {
+      <div class="w-full">
+        <app-panel-tag-category [category]="category" (changed)="loadContent()"></app-panel-tag-category>
+      </div>
+    }
+    <br>
+  }
+</app-block>

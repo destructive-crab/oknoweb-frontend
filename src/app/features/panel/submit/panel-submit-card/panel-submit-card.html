@@ -1,0 +1,119 @@
+<div class="mx-1 outline-4 outline-blue-600">
+  <div class="p-4">
+    @if (!editMode) {
+      <div class="font-main text-3xl text-left mb-2 grid grid-cols-2">
+        <div>
+          <b> Id: </b> {{submission.id}}
+          <br>
+          <b>Name:</b> {{submission.name}}
+          <br>
+          <b> Link: </b> {{submission.link}}
+          <br>
+          <b> Info: </b> {{submission.additionalInfo}}
+          <br>
+          <b> Contact: </b> <span (click)="toggleContactMask()" class="cursor-pointer">{{getContact()}}</span>
+          <br>
+          <b> Tags: </b>
+          @for (tag of submission.tags; track $index){ {{tag}} }
+          <br>
+          <b> Date: </b> {{submission.date}}
+          <div class="mt-2 pr-3">
+            <input
+              id="reviewLink"
+              type="text"
+              [formControl]="reviewLink"
+              [maxLength]="60"
+              placeholder="Ссылка на игру"
+              class="bg-white text-blue-700 font-main text-xl md:text-2xl text-center border-4 3xl:border-8 border-blue-400 focus:ring-0 focus:outline-2 focus:outline-pink-400 font-bold w-full mb-2 3xl:mb-8 "
+            />
+
+            <app-button preset="full bluealt2 t1" (click)="postReviewLink()"> save review link</app-button>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 h-full gap-y-4">
+          @if (submission.status === "unverified") {
+            <app-button preset="full t2 green" (click)="approve()"> Approve </app-button>
+            <app-button preset="full t2 red" (click)="reject()"> Reject </app-button>
+          }
+          @else {
+            <app-button preset="full t2 red" (click)="reject()"> Delete</app-button>
+          }
+
+          <app-button preset="full t2 black" (click)="edit()"> Edit </app-button>
+        </div>
+        <br>
+      </div>
+    }
+    @else {
+      <div class="mb-3">
+        <div class="text-center text-3xl font-main font-bold text-blue-500 mb-2"> Редактирование сабмита {{submission.id}}</div>
+        <input
+          id="name"
+          type="text"
+          [formControl]="editName"
+          [maxLength]="36"
+          placeholder="Название"
+          class="bg-white text-blue-700 font-main text-2xl md:text-[2vw] text-center border-4 3xl:border-8 border-pink-400 focus:ring-0 focus:outline-2 focus:outline-pink-400 font-bold w-full mb-2 3xl:mb-8"
+        />
+
+        <input
+          id="link"
+          type="text"
+          [formControl]="editLink"
+          [maxLength]="60"
+          placeholder="Ссылка на игру"
+          class="bg-white text-blue-700 font-main text-2xl md:text-[2vw] text-center border-4 3xl:border-8 border-pink-400 focus:ring-0 focus:outline-2 focus:outline-pink-400 font-bold w-full mb-2 3xl:mb-8"
+        />
+
+        <textarea
+          id="additionalInfo"
+          type="text"
+          [formControl]="editAdditionalInfo"
+          [maxLength]="450"
+          rows="6"
+          placeholder="Описание"
+          class="bg-white text-blue-700 font-main text-2xl md:text-[2vw] text-center border-4 3xl:border-8 border-pink-400 focus:ring-0 focus:outline-2 focus:outline-pink-400 font-bold w-full mb-2 3xl:mb-8"
+        ></textarea>
+
+        <input
+          id="contacts"
+          type="text"
+          [formControl]="editContact"
+          [maxLength]="60"
+          placeholder="Контакты"
+          class="bg-white text-blue-700 font-main text-2xl md:text-[2vw] text-center border-4 3xl:border-8 border-pink-400 focus:ring-0 focus:outline-2 focus:outline-pink-400 font-bold w-full mb-2 3xl:mb-8"
+        />
+
+        <input
+          id="date"
+          type="text"
+          [formControl]="editDate"
+          [maxLength]="60"
+          placeholder="Дата (dd/mm/yyyy)"
+          class="bg-white text-blue-700 font-main text-2xl md:text-[2vw] text-center border-4 3xl:border-8 border-pink-400 focus:ring-0 focus:outline-2 focus:outline-pink-400 font-bold w-full mb-2 3xl:mb-8"
+        />
+
+        <div class = "border-4 border-pink-500 w-full">
+          <app-tag-selector [includePanelOnly]="true" (tagsChanged)="onTagsChanged($event)" [setSelectedTags]="submission.tags" > </app-tag-selector>
+        </div>
+
+        <br>
+
+        <button
+          class="bg-pink-500 hover:bg-pink-400 active:bg-pink-600 text-white items-center font-main text-xl hover:cursor-pointer w-full"
+          (click)="saveChanges()"
+        >
+          <b> save </b>
+        </button>
+
+        <button
+          class="bg-pink-500 hover:bg-pink-400 active:bg-pink-600 text-white items-center font-main text-xl hover:cursor-pointer w-full"
+          (click)="discardChanges()"
+        >
+          <b> discard </b>
+        </button>
+      </div>
+    }
+  </div>
+
+</div>

@@ -1,5 +1,0 @@
-.contact-toggle { cursor:pointer; color:#000555; border-bottom:1px dashed #000555; display:inline-block; }
-.contact-mask { user-select:none; }
-.contact-toggle.is-visible { border-bottom-style: solid; }
-.contact-toggle.is-visible .contact-mask { display:none; }
-.contact-toggle.is-visible .contact-value { display:inline-block; }

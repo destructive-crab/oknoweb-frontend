@@ -1,6 +1,6 @@
 {
-  "/submit/api": {
-    "target": "https://oknoweb.ru",
+  "/api": {
+    "target": "http://localhost:5100",
     "changeOrigin": true,
     "secure": false
   }

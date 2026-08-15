@@ -1,0 +1,40 @@
+<app-block>
+  <div class="text-4xl font-main font-bold text-center text-blue-600"> Okno Submit Panel</div>
+
+  <div class="flex w-full mb-4">
+    <app-button preset="full bluealt2 t1" routeLink="panel" class="w-full text-center">
+      <b> обратно </b>
+    </app-button>
+    <app-button preset="full bluealt2 t1" routeLink="panel/submit/tags" class="w-full text-center">
+      <b> редактировать теги</b>
+    </app-button>
+  </div>
+
+  <div class="text-3xl font-main font-bold text-center text-blue-600"> {{unverifiedSubmissions().length}} в очереди </div>
+
+  <div class="flex w-full mb-4">
+    <app-button preset="full bluealt2 t2" (onClick)="openPending()" class="w-full text-center">
+      <b> @if (!showVerified()) { >Pending< } @else { Pending }</b>
+    </app-button>
+    <app-button preset="full bluealt2 t2" (onClick)="openVerified()" class="w-full text-center ">
+      <b> @if (showVerified()) { >Verified< } @else { Verified }</b>
+    </app-button>
+  </div>
+
+  <div class="w-full">
+    @if (error() != null) {
+      <div class="text-2xl mb-4 text-center font-main font-bold text-red-500"> Error: {{error()}} </div>
+    }
+    @if (loading()) {
+      <div class="text-2xl mb-4 text-center font-main font-bold text-blue-500"> Загрузка </div>
+    }
+    @if (selectedSubmissions().length > 0) {
+      @for (submission of selectedSubmissions(); track submission.id) {
+        <app-panel-submit-card [submission]="submission" (changed)="loadSubmissions()" class="w-full mb-3"></app-panel-submit-card>
+      }
+    }
+    @else {
+      <div class="text-2xl mb-4 text-center font-main font-bold"> Сабмитов нет :(</div>
+    }
+  </div>
+</app-block>

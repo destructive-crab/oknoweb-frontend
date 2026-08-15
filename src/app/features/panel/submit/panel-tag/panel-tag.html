@@ -1,0 +1,40 @@
+@if (!editMode)
+{
+  <hr>
+  <div class="grid grid-cols-2">
+    <div class="w-full text-center">
+      {{tagSignal().tag}} ({{tagSignal().category}})
+    </div>
+    <app-button preset="full t0 bluealt2" (click)="edit()"> Edit </app-button>
+  </div>
+  <hr>
+}
+@else {
+  <div class="w-full text-center">
+    Редактирование {{tagSignal().tag}} ({{tagSignal().category}})
+  </div>
+  <input
+    id="tag"
+    type="text"
+    [formControl]="tagEdited"
+    [maxLength]="60"
+    placeholder="тег"
+    class="bg-white text-blue-700 font-main text-2xl md:text-[2vw] text-center border-4 3xl:border-8 border-pink-400 focus:ring-0 focus:outline-2 focus:outline-pink-400 font-bold w-full mb-2 3xl:mb-8"
+  />
+
+  <input
+    id="category"
+    type="text"
+    [formControl]="categoryEdited"
+    [maxLength]="60"
+    placeholder="категория"
+    class="bg-white text-blue-700 font-main text-2xl md:text-[2vw] text-center border-4 3xl:border-8 border-pink-400 focus:ring-0 focus:outline-2 focus:outline-pink-400 font-bold w-full mb-2 3xl:mb-8"
+  />
+
+  <div class="w-full grid grid-cols-3 gap-x-2">
+    <app-button preset = "full bluealt2 t0" (click)="saveChanges()"> <b> save</b></app-button>
+    <app-button preset = "full bluealt2 t0" (click)="discardChanges()"> <b> discard</b></app-button>
+    <app-button preset = "full red t0" (click)="delete()"> <b> delete</b></app-button>
+  </div>
+  <br>
+}

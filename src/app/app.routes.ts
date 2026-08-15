@@ -1,9 +1,12 @@
 import type { Routes } from '@angular/router';
-import { Home } from './home/home';
-import { Submissions, submissionsListResolver } from './submissions/submissions'
-import { Submit } from './submit/submit';
-import { SubmitSuccess } from './submit-success/submit-success';
-
+import { Home } from './features/home/home';
+import { Submissions, submissionsListResolver } from './features/okno-submit/submissions/submissions'
+import { Submit, tagsResolver } from './features/okno-submit/submit/submit';
+import { SubmitSuccess } from './features/okno-submit/submit-success/submit-success';
+import { PanelLogin } from './features/panel/panel-login/panel-login';
+import { PanelRoot } from './features/panel/panel-root/panel-root';
+import { PanelSubmit } from './features/panel/submit/panel-submit/panel-submit';
+import { PanelSubmitTags } from './features/panel/submit/panel-submit-tags/panel-submit-tags';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -12,6 +15,9 @@ export const routes: Routes = [
   {
     path: 'submit',
     component: Submit,
+    resolve: {
+      tags: tagsResolver
+    },
   },
   {
     path: 'submissions',
@@ -20,13 +26,24 @@ export const routes: Routes = [
       submissions: submissionsListResolver
     },
   },
-  { path: 'submit/success/:id', component: SubmitSuccess, },
   {
-    path: 'admin/login',
-    loadComponent: () => import('./admin-login/admin-login').then(m => m.AdminLogin)
+    path: 'submit/success/:id',
+    component: SubmitSuccess,
   },
   {
-    path: 'admin/submit',
-    loadComponent: () => import('./admin-submit/admin-submit').then(m => m.AdminSubmit)
-  }
+    path: 'panel',
+    component: PanelRoot,
+  },
+  {
+    path: 'panel/login',
+    component: PanelLogin,
+  },
+  {
+    path: 'panel/submit',
+    component: PanelSubmit,
+  },
+  {
+    path: 'panel/submit/tags',
+    component: PanelSubmitTags,
+  },
 ];

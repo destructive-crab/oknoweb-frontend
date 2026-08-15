@@ -1,0 +1,28 @@
+    @if (newTagMenuOpened) {
+      <h2 class="text-3xl text-center"> новый тег</h2>
+      <input
+        id="tag"
+        type="text"
+        [formControl]="newTag"
+        [maxLength]="60"
+        placeholder="тег"
+        class="bg-white text-blue-700 font-main text-2xl md:text-[2vw] text-center border-4 3xl:border-8 border-pink-400 focus:ring-0 focus:outline-2 focus:outline-pink-400 font-bold w-full mb-2 3xl:mb-8"
+      />
+
+      <input
+        id="category"
+        type="text"
+        [formControl]="newTagCategory"
+        [maxLength]="60"
+        placeholder="категория"
+        class="bg-white text-blue-700 font-main text-2xl md:text-[2vw] text-center border-4 3xl:border-8 border-pink-400 focus:ring-0 focus:outline-2 focus:outline-pink-400 font-bold w-full mb-2 3xl:mb-8"
+      />
+
+      <div class="grid grid-cols-2 gap-x-2">
+        <app-button preset = "full bluealt2 t0" (click)="postNewTag()"> <b> создать </b></app-button>
+        <app-button preset = "full bluealt2 t0" (click)="closeNewTagMenu()"> <b> отмена </b></app-button>
+      </div>
+    }
+    @else {
+      <app-button preset="full t2 pink" (click)="openNewTagMenu()">новый тег</app-button>
+    }
