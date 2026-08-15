@@ -3,7 +3,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Button } from '../../../../shared/components/button/button';
 import { TagSelector } from '../../../okno-submit/tag-selector/tag-selector';
 import { PanelService } from '../../../../core/services/panel-service';
-import { PrivateSubmitInfo, SubmitEditPayload } from '../../../../core/models/submit.model';
+import { PrivateSubmitInfo, SubmissionEditPayload } from '../../../../core/models/submit.model';
 
 @Component({
   selector: 'app-panel-submit-card',
@@ -71,12 +71,12 @@ export class PanelSubmitCard {
   saveChanges() {
     this.editMode = false;
 
-    const payload: SubmitEditPayload = {
+    const payload: SubmissionEditPayload = {
       name : this.editName.value || "",
       contact : this.editContact.value || "",
       link : this.editLink.value || "",
       additionalInfo : this.editAdditionalInfo.value || "",
-      reviewLink : this.editReview.value || "",
+      rating: -1,
       date: this.editDate.value || "",
       tags: this.editTags
     };

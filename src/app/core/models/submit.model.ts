@@ -12,7 +12,7 @@ export interface SubmissionEditPayload {
   additionalInfo: string;
   contact: string;
   tags: string[];
-  reviewLink: string;
+  rating: number;
   date: string;
 }
 
@@ -25,6 +25,7 @@ export interface SubmitInfo {
   tags: string[];
   reviewLink: string;
   date: string;
+  rating: number;
 }
 
 export interface PrivateSubmitInfo {
@@ -35,16 +36,7 @@ export interface PrivateSubmitInfo {
   additionalInfo: string;
   tags: string[];
   reviewLink: string;
-  date: string;
-  contact: string;
-}
-
-export interface SubmitEditPayload {
-  name: string;
-  link: string;
-  additionalInfo: string;
-  tags: string[];
-  reviewLink: string;
+  rating: number;
   date: string;
   contact: string;
 }
