@@ -39,12 +39,12 @@ export class PanelService {
 
   rejectSubmission(submissionId: string)
   {
-    return this.http.post(this.apiUrl + "/submissions/"+submissionId+"/reject", { headers: this.authHeadersFromStorage() });
+    return this.http.post(this.apiUrl + "/submissions/"+submissionId+"/reject", null, { headers: this.authHeadersFromStorage() });
   }
 
   pendSubmission(submissionId: string)
   {
-    return this.http.post(this.apiUrl + "/submissions/"+submissionId+"/pend", { headers: this.authHeadersFromStorage() });
+    return this.http.post(this.apiUrl + "/submissions/" + submissionId + "/pend", null, { headers: this.authHeadersFromStorage() });
   }
 
   postReviewLink(submissionId:string , reviewLink:string) : Observable<Object>
@@ -70,7 +70,7 @@ export class PanelService {
 
   deleteTag(tag: string)
   {
-    return this.http.post(this.apiUrl + "/tags/"+tag+"/delete", { headers: this.authHeadersFromStorage() });
+    return this.http.post(this.apiUrl + "/tags/"+tag+"/delete", null, { headers: this.authHeadersFromStorage() });
   }
 
   postCategory(category: TagCategoryInfo)
@@ -85,6 +85,6 @@ export class PanelService {
 
   deleteCategory(category: string)
   {
-    return this.http.post(this.apiUrl + "/tags/categories/" + category + "/delete", { headers: this.authHeadersFromStorage() });
+    return this.http.post(this.apiUrl + "/tags/categories/" + category + "/delete", null, { headers: this.authHeadersFromStorage() });
   }
 }
