@@ -9,9 +9,11 @@
       <h3 class="break-normal"><b> {{ this.submitInfo.additionalInfo }} </b></h3>
     </div>
 
-    <div class="font-main leading-7 text-2xl text-balance md:text-center md:text-2xl text-[#000555] break-all mb-5">
-      <h3 class="break-normal"><b> {{ this.submitInfo.rating }} </b></h3>
-    </div>
+    @if(submitInfo.rating > -1) {
+      <div class="font-main leading-7 text-2xl text-balance text-center md:text-2xl text-[#000555] break-all mb-5">
+        <h3 class="break-normal"><b> {{ this.submitInfo.rating }} </b></h3>
+      </div>
+    }
 
     <div
       class="font-main leading-7 text-2xl md:text-center md:text-2xl text-[#000555] outline-2 outline-pink-400 break-all"
@@ -30,7 +32,7 @@
 
     <div class="text-center mt-4 mb-4 font-main font-bold">{{this.submitInfo.date}}</div>
 
-    <div class="p-4 flex justify-center w-full">
+    <div class="p-4 flex wrap justify-center w-full">
       @for (tag of submitInfo.tags; track $index)
       {
         <div class=" bg-blue-600 text-white font-main text-sm md:text-xl px-2 mx-1 font-bold border-3 border-blue-600">
