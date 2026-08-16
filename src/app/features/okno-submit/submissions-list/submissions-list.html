@@ -11,14 +11,6 @@
         <i class="nf {{sortText}}"></i>
       </app-button>
 
-      <app-button
-        (onClick)="switchShowcaseSize()"
-        class="text-center w-full"
-        preset="full bluealt2 t1"
-      >
-        [{{showcaseSizeText}}]
-      </app-button>
-
       @if (currentShowcaseSize != submissions.length){
       <div class="w-[90vw] md:w-[70vw] flex">
         <app-button preset="full bluealt2 t1" (onClick)="moveBackTab()" class="w-full text-center">

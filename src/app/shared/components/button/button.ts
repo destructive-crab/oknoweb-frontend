@@ -49,15 +49,15 @@ export class Button {
 
         case 'blue':
           this.color =
-            'font-bold bg-white text-blue-700 border-4 border-b-8 border-r-8 3xl:border-8 3xl:border-b-12 border-blue-700 hover:bg-blue-700 hover:text-white';
+            'font-bold bg-white text-blue-700 border-4 border-b-8 border-r-8 3xl:border-8 3xl:border-b-12 border-blue-700 hover:bg-blue-700 hover:text-white active:text-white active:bg-blue-800 active:border-blue-800';
           break;
 
         case 'bluealt':
-          this.color = 'font-bold bg-[#000555] border-5 hover:bg-blue-400 text-white';
+          this.color = 'font-bold bg-[#000555] border-5 hover:bg-blue-400 text-white active:bg-blue-700';
           break;
 
         case 'bluealt2':
-          this.color = 'font-bold bg-blue-600 hover:bg-blue-500 text-white';
+          this.color = 'font-bold bg-blue-600 hover:bg-blue-500 text-white active:bg-blue-700';
           break;
 
         case 'green':

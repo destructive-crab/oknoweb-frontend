@@ -16,6 +16,21 @@ export class SubmitService {
     return this.http.post<SubmitInfo>(this.apiUrl + '/submissions', payload);
   }
 
+  getSubmissions(): Observable<SubmitInfo[]>
+  {
+    return this.http.get<SubmitInfo[]>(this.apiUrl + "/submissions");
+  }
+
+  getSubmissionsCount(): Observable<number>
+  {
+    return this.http.get<number>(this.apiUrl + "/submissions/verified/count");
+  }
+
+  getSubmission(id: string): Observable<SubmitInfo>
+  {
+    return this.http.get<SubmitInfo>(this.apiUrl + "/submissions/" + id);
+  }
+
   getCategories(): Observable<TagCategoryInfo[]>
   {
     return this.http.get<TagCategoryInfo[]>(this.apiUrl + "/tags/categories");
@@ -34,15 +49,5 @@ export class SubmitService {
   getTagsInCategory(category:string): Observable<string[]>
   {
     return this.http.get<string[]>(this.apiUrl + "/tags/categories/" + category)
-  }
-
-  getSubmissions(): Observable<SubmitInfo[]>
-  {
-    return this.http.get<SubmitInfo[]>(this.apiUrl + "/submissions");
-  }
-
-  getSubmissionsCount(): Observable<number>
-  {
-    return this.http.get<number>(this.apiUrl + "/submissions/verified/count")
   }
 }

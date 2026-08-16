@@ -1,9 +1,9 @@
 import { Component, inject, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Button } from '../../../shared/components/button/button';
 import { Block } from '../../../shared/components/block/block';
-import { HttpClient } from '@angular/common/http';
+import { SubmitService } from '../../../core/services/submit-service';
 
 @Component({
   selector: 'app-submit-success',
@@ -12,22 +12,29 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SubmitSuccess {
   public id: string = 'invalid';
-  private http = inject(HttpClient);
+  private submitService = inject(SubmitService);
+  private router = inject(Router);
 
   constructor(private route: ActivatedRoute, @Inject(DOCUMENT) private document: Document) {
     this.route.params.subscribe((params) => {
-      let providedID:string = params['id'];
+      const providedID: string = params['id'];
       this.id = providedID;
-
-      //this.http.get(`https://oknoweb.ru/submit/api/submissions/${providedID}`, { observe: 'response' })
-      // .subscribe((response: HttpResponse<any>) => {
-      //    if (response.status != 200) {
-      //      this.id = 'invalid';
-      //    }
-      //    else {
-      //    }
-      //});
     });
+    //waiting for special api for success available
+//    this.route.params.subscribe((params) => {
+//      const providedID:string = params['id'];
+//
+//      this.submitService.getSubmission(providedID)
+//        .subscribe({
+//          next: (response) => {
+//            this.id = providedID;
+//          },
+//          error: (err) => {
+//            this.router.navigate(["/home"]);
+//            this.id = 'invalid';
+//          }
+//        });
+//    });
 
   }
   ngOnInit() {
