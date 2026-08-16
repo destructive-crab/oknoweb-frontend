@@ -38,9 +38,15 @@ export class SubmissionsList {
   public tabsCount: number = 1;
   public showcaseSizeText: string = 'notinit';
 
-  filter(filter: string) {
+  private filterText: string = "";
+
+  setFilterText(filter: string) {
+    this.filterText = filter;
+    this.filter();
+  }
+  filter() {
     this.filteredSubmissions = this.submissions.filter((item) =>
-      (item.name.toLowerCase().includes(filter.toLowerCase()) || filter === '') && (this.selectedTags.length == 0 || this.hasSelectedTags(item)),
+      (item.name.toLowerCase().includes(this.filterText.toLowerCase()) || this.filterText === '') && (this.selectedTags.length == 0 || this.hasSelectedTags(item)),
     );
 
     this.applyShowcaseSize(this.currentShowcaseSizeSwitcher);
@@ -49,7 +55,7 @@ export class SubmissionsList {
   selectedTagsChanged(tags: string[])
   {
     this.selectedTags = tags;
-    this.filter("");
+    this.filter();
   }
 
   hasSelectedTags(submit: SubmitInfo) : boolean
@@ -180,10 +186,10 @@ export class SubmissionsList {
     this.applySort(SortingType.NewOld);
 
     this.applyShowcaseSize(ShowcaseSize.Less);
-    this.filter("");
+    this.filter();
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.filter('');
+    this.filter();
   }
 }
