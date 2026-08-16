@@ -54,15 +54,16 @@ export class SubmissionsList {
 
   hasSelectedTags(submit: SubmitInfo) : boolean
   {
-    for (const tag of submit.tags)
+    let counter = 0;
+    for (const tag of this.selectedTags)
     {
-      if (this.selectedTags.includes(tag))
+      if (submit.tags.includes(tag))
       {
-        return true;
+        counter++;
       }
     }
 
-    return false;
+    return counter == this.selectedTags.length;
   }
 
   switchSortingType() {
