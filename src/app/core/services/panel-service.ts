@@ -1,7 +1,7 @@
-import { Observable } from "rxjs"
+import { Observable, from, switchMap } from "rxjs"
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { SubmissionEditPayload, TagCategoryInfo, TagInfo } from "../models/submit.model";
+import { PrivateSubmitInfo, SubmissionEditPayload, TagCategoryInfo, TagInfo } from "../models/submit.model";
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,16 @@ export class PanelService {
   getSubmissions(): Promise<Response>
   {
     return fetch(this.apiUrl + "/submissions", { headers: this.authHeadersFromStorage() })
+  }
+
+  setSubmissionRating(submissionId: string, rating: number): Observable<Object>
+  {
+    return from(this.getSubmissions().then(r => r.json() as Promise<PrivateSubmitInfo[]>)).pipe(
+      switchMap(subs => {
+        const s = subs.find(s => s.id === submissionId)!;
+        return this.editSubmission(submissionId, { ...s, rating });
+      })
+    );
   }
 
   rejectSubmission(submissionId: string)

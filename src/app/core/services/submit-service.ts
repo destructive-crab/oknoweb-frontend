@@ -1,4 +1,4 @@
-import { Observable } from "rxjs"
+import { Observable, map } from "rxjs"
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { SubmitInfo, SubmitPayload, TagCategoryInfo, TagInfo } from "../models/submit.model";
@@ -49,5 +49,10 @@ export class SubmitService {
   getTagsInCategory(category:string): Observable<string[]>
   {
     return this.http.get<string[]>(this.apiUrl + "/tags/categories/" + category)
+  }
+
+  getSubmissionRating(id: string): Observable<number>
+  {
+    return this.getSubmission(id).pipe(map(submission => submission.rating));
   }
 }

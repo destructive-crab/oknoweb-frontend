@@ -1,7 +1,7 @@
 <div class="mx-1 outline-4 outline-blue-600">
   <div class="p-4">
     @if (!editMode) {
-      <div class="font-main text-3xl text-left mb-2 grid grid-cols-2">
+      <div class="font-main text-3xl text-left mb-2 grid grid-cols-[70%_30%]">
         <div>
           <b> Id: </b> {{submission.id}}
           <br>
@@ -17,31 +17,43 @@
           @for (tag of submission.tags; track $index){ {{tag}} }
           <br>
           <b> Date: </b> {{submission.date}}
-          <div class="mt-2 pr-3">
-            <input
-              id="reviewLink"
-              type="text"
-              [formControl]="reviewLink"
-              [maxLength]="60"
-              placeholder="Ссылка на игру"
-              class="bg-white text-blue-700 font-main text-xl md:text-2xl text-center border-4 3xl:border-8 border-blue-400 focus:ring-0 focus:outline-2 focus:outline-pink-400 font-bold w-full mb-2 3xl:mb-8 "
-            />
-
-            <app-button preset="full bluealt2 t1" (click)="postReviewLink()"> save review link</app-button>
-          </div>
         </div>
-        <div class="grid grid-cols-1 h-full gap-y-4">
+        <div class="flex flex-col gap-2 h-full">
           @if (submission.status === "unverified") {
-            <app-button preset="full t2 green" (click)="approve()"> Approve </app-button>
-            <app-button preset="full t2 red" (click)="reject()"> Reject </app-button>
+            <div class="flex-1"><app-button preset="t2 green" customProperties="w-full" style="display:block;width:100%;height:100%" (click)="approve()"> Approve </app-button></div>
+            <div class="flex-1"><app-button preset="t2 pinkalt2" customProperties="w-full" style="display:block;width:100%;height:100%" (click)="reject()"> Reject </app-button></div>
           }
           @else {
-            <app-button preset="full t2 red" (click)="reject()"> Delete</app-button>
+            <div class="flex-1"><app-button preset="t2 pinkalt2" customProperties="w-full" style="display:block;width:100%;height:100%" (click)="reject()"> Delete</app-button></div>
           }
-
-          <app-button preset="full t2 black" (click)="edit()"> Edit </app-button>
+          <div class="flex-1"><app-button preset="t2 blue" customProperties="w-full" style="display:block;width:100%;height:100%" (click)="edit()"> Edit </app-button></div>
         </div>
-        <br>
+      </div>
+
+      <div class="mt-2">
+        <div class="flex items-stretch gap-2 mb-2">
+          <input
+            id="reviewLink"
+            type="text"
+            [formControl]="reviewLink"
+            [maxLength]="60"
+            placeholder="Ссылка на обзор"
+            class="bg-white text-blue-700 font-main text-xl md:text-2xl text-center border-4 3xl:border-8 border-blue-400 focus:ring-0 focus:outline-2 focus:outline-pink-400 font-bold w-[80%]"
+          />
+          <input
+            id="rating"
+            type="number"
+            [formControl]="rating"
+            [min]="-1"
+            [max]="10"
+            placeholder="—"
+            class="w-[20%] bg-white text-blue-700 font-main text-xl md:text-2xl text-center border-4 3xl:border-8 border-blue-400 focus:ring-0 focus:outline-2 focus:outline-pink-400 font-bold shrink-0"
+          />
+        </div>
+        <div class="flex gap-2">
+          <app-button preset="full bluealt2 t1" (click)="postReviewLink()" class="w-[80%]"> save review link</app-button>
+          <app-button preset="full bluealt2 t1" (click)="postRating()" class="w-[20%]"> save rating</app-button>
+        </div>
       </div>
     }
     @else {

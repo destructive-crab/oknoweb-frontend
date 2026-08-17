@@ -18,6 +18,7 @@ export class PanelSubmitCard {
   contactMaskToggle: boolean = false;
 
   reviewLink = new FormControl("");
+  rating = new FormControl<number | null>(null);
 
   editReview = new FormControl("");
   editName = new FormControl("");
@@ -31,6 +32,7 @@ export class PanelSubmitCard {
 
   ngOnInit() {
     this.reviewLink.setValue(this.submission.reviewLink);
+    this.rating.setValue(this.submission.rating > -1 ? this.submission.rating : null);
   }
 
   isUnverified(): boolean {
@@ -93,5 +95,11 @@ export class PanelSubmitCard {
     if (this.reviewLink.value != null) {
       this.panelService.postReviewLink(this.submission.id, this.reviewLink.value).subscribe(r => console.log(r));
     }
+  }
+
+  postRating()
+  {
+    const value = this.rating.value ?? -1;
+    this.panelService.setSubmissionRating(this.submission.id, value).subscribe(() => this.changed.emit());
   }
 }
