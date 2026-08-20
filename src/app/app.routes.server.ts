@@ -6,6 +6,10 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Server,
   },
   {
+    path: 'submissions/:id',
+    renderMode: RenderMode.Server,
+  },
+  {
     path: 'submit/success/:id',
     renderMode: RenderMode.Server,
   },
