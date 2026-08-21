@@ -58,9 +58,7 @@ export class Home {
         return new Date(y2, m2 - 1, d2).getTime() - new Date(y1, m1 - 1, d1).getTime();
       });
 
-      const topRated = sorted.filter(s => s.rating >= 8);
-      const rest = sorted.filter(s => s.rating < 8);
-      this.bestSubmissions.set([...topRated, ...rest].slice(0, 10));
+      this.bestSubmissions.set(sorted.slice(0, 10));
     });
   }
 
