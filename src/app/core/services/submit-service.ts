@@ -1,7 +1,7 @@
 import { Observable } from "rxjs"
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { SubmitInfo, SubmitPayload, TagCategoryInfo, TagInfo } from "../models/submit.model";
+import { SubmissionReview, SubmitInfo, SubmitPayload, TagCategoryInfo, TagInfo } from "../models/submit.model";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,11 @@ export class SubmitService {
   submitNew(payload: SubmitPayload): Observable<SubmitInfo>
   {
     return this.http.post<SubmitInfo>(this.apiUrl + '/submissions', payload);
+  }
+
+  getReviews(id: string): Observable<SubmissionReview[]>
+  {
+    return this.http.get<SubmissionReview[]>(this.apiUrl+"submissions/"+id+"/reviews");
   }
 
   getSubmissions(): Observable<SubmitInfo[]>

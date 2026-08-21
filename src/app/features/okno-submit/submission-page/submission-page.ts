@@ -1,18 +1,15 @@
-import { Component, computed, inject, Inject, signal } from '@angular/core';
+import { Component, inject, Inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { SubmitService } from '../../../core/services/submit-service';
 import { SubmitInfo } from '../../../core/models/submit.model';
 import { Block } from '../../../shared/components/block/block';
 import { Button } from '../../../shared/components/button/button';
-
-interface SubmissionRouteData {
-  submission: SubmitInfo;
-}
+import { Submission } from '../submission/submission';
 
 @Component({
   selector: 'app-submission-page',
-  imports: [Block, Button],
+  imports: [Block, Button, Submission],
   templateUrl: './submission-page.html',
 })
 export class SubmissionPage {

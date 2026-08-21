@@ -48,4 +48,12 @@ export interface TagCategoryInfo {
   order: number;
 }
 
+export interface SubmissionReview {
+  id: number;
+  submissionId: string;
+  author: string;
+  link: string;
+  rating: number;
+}
+
 export type SubmitStatus = "unverified" | "pending" | "reviewed";
