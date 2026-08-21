@@ -6,7 +6,6 @@ import { PanelSubmitCard } from '../panel-submit-card/panel-submit-card';
 import { Button } from '../../../../shared/components/button/button';
 import { Block } from '../../../../shared/components/block/block';
 import { PrivateSubmitInfo } from '../../../../core/models/submit.model';
-import { PanelService } from '../../../../core/services/panel-service';
 import { PanelPage } from '../../panel-page';
 
 @Component({
@@ -73,10 +72,6 @@ export class PanelSubmit extends PanelPage {
     this.panelService.getSubmissions()
       .then(r => { if (!r.ok) throw new Error(r.status + ''); return r.json(); })
       .then((data: PrivateSubmitInfo[]) => {
-        for (const s of data) {
-          if (s.reviewLink === "none") s.reviewLink = '';
-        }
-
         this._unverified.set(data.filter(s => s.status === 'unverified'));
         this._verified.set(data.filter(s => s.status !== 'unverified'));
         this._loading.set(false);

@@ -15,7 +15,6 @@ export class PanelSubmitCard {
   @Output() changed = new EventEmitter<void>();
 
   editMode: boolean = false;
-  contactMaskToggle: boolean = false;
 
   reviewLink = new FormControl("");
   rating = new FormControl<number | null>(null);
@@ -24,28 +23,16 @@ export class PanelSubmitCard {
   editName = new FormControl("");
   editLink = new FormControl("");
   editAdditionalInfo = new FormControl("");
-  editContact = new FormControl("");
+  editAuthor = new FormControl("");
   editDate = new FormControl("");
   editTags: string[] = [];
 
   private panelService: PanelService = inject(PanelService);
 
-  ngOnInit() {
-    this.reviewLink.setValue(this.submission.reviewLink);
-    this.rating.setValue(this.submission.rating > -1 ? this.submission.rating : null);
-  }
+  ngOnInit() { }
 
   isUnverified(): boolean {
     return this.submission.status === "unverified"
-  }
-
-  getContact(): string {
-    if (this.contactMaskToggle) return this.submission.contact;
-    else                        return "######";
-  }
-
-  toggleContactMask() {
-    this.contactMaskToggle = !this.contactMaskToggle;
   }
 
   onTagsChanged(tags: string[]):void {
@@ -64,7 +51,7 @@ export class PanelSubmitCard {
     this.editName.setValue(this.submission.name);
     this.editLink.setValue(this.submission.link);
     this.editAdditionalInfo.setValue(this.submission.additionalInfo);
-    this.editContact.setValue(this.submission.contact);
+    this.editAuthor.setValue(this.submission.author);
     this.editDate.setValue(this.submission.date);
 
     this.editMode = true;
@@ -75,10 +62,9 @@ export class PanelSubmitCard {
 
     const payload: SubmissionEditPayload = {
       name : this.editName.value || "",
-      contact : this.editContact.value || "",
+      author: this.editAuthor.value || "",
       link : this.editLink.value || "",
       additionalInfo : this.editAdditionalInfo.value || "",
-      rating: -1,
       date: this.editDate.value || "",
       tags: this.editTags
     };
@@ -100,6 +86,5 @@ export class PanelSubmitCard {
   postRating()
   {
     const value = this.rating.value ?? -1;
-    this.panelService.setSubmissionRating(this.submission.id, value).subscribe(() => this.changed.emit());
   }
 }

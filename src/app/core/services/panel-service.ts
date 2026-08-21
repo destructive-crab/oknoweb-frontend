@@ -37,16 +37,6 @@ export class PanelService {
     return fetch(this.apiUrl + "/submissions", { headers: this.authHeadersFromStorage() })
   }
 
-  setSubmissionRating(submissionId: string, rating: number): Observable<Object>
-  {
-    return from(this.getSubmissions().then(r => r.json() as Promise<PrivateSubmitInfo[]>)).pipe(
-      switchMap(subs => {
-        const s = subs.find(s => s.id === submissionId)!;
-        return this.editSubmission(submissionId, { ...s, rating });
-      })
-    );
-  }
-
   rejectSubmission(submissionId: string)
   {
     return this.http.post(this.apiUrl + "/submissions/"+submissionId+"/reject", null, { headers: this.authHeadersFromStorage() });

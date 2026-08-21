@@ -1,43 +1,50 @@
 <link href="https://www.nerdfonts.com/assets/css/webfont.css" rel="stylesheet" />
-<app-block>
-  @if (submission()) {
-    <div class="font-main text-[44px] leading-8 text-center md:text-4xl text-[#000555] mt-5 mb-7">
-      <h2><b> {{ submission()!.name }}</b></h2>
-    </div>
+<div class="flex items-center h-screen w-full">
 
-    <div class="font-main leading-7 text-2xl text-balance md:text-center md:text-2xl text-[#000555] break-all mb-5">
-      <h3 class="break-normal"><b> {{ submission()!.additionalInfo }} </b></h3>
-    </div>
-
-    <div class="font-main leading-7 text-2xl md:text-center md:text-2xl text-[#000555] outline-2 outline-pink-400 break-all">
-      <a href="{{ submission()!.link }}" target="_blank"><b> {{ submission()!.link }} </b></a>
-    </div>
-
-    @if (submission()!.rating > -1) {
-      <div class="flex items-center justify-center mt-5 mb-5">
-        <span class="font-main text-4xl text-blue-600 font-bold">{{ submission()!.rating }}/10</span>
+  <app-block>
+    @if (submission()) {
+      <div class="font-main text-[44px] leading-8 text-center md:text-4xl text-[#000555] mt-5">
+        <h2><b> {{ submission()!.name }}</b></h2>
       </div>
-    }
 
-    @if (submission()!.status == 'reviewed') {
-      <br />
-      <div class="flex justify-stretch w-full">
-        <app-button preset="full blue t1" (onClick)="openReview()" class="w-full text-center">
-          смотреть обзор
-        </app-button>
+      <div class="font-main text-[20px] leading-8 text-center md:text-2xl text-[#000555] mt-1 mb-7">
+        <h2><b> by {{ this.submission()!.author }}</b></h2>
       </div>
-    }
 
-    <div class="text-center mt-4 mb-4 font-main font-bold">{{ submission()!.date }}</div>
+      <div class="font-main leading-7 text-2xl text-balance md:text-center md:text-2xl text-[#000555] break-all mb-5">
+        <h3 class="break-normal"><b> {{ submission()!.additionalInfo }} </b></h3>
+      </div>
 
-    <div class="p-4 flex flex-wrap justify-center w-full">
-      @for (tag of submission()!.tags; track $index) {
-        <div class="bg-blue-600 text-white font-main text-sm md:text-xl px-2 mx-1 mb-2 font-bold border-3 border-blue-600">
-          {{ tag }}
+      <div class="font-main leading-7 text-2xl md:text-center md:text-2xl text-[#000555] outline-2 outline-pink-400 break-all">
+        <a href="{{ submission()!.link }}" target="_blank"><b> {{ submission()!.link }} </b></a>
+      </div>
+
+      @if (submission()!.status == 'reviewed') {
+        <br />
+        <div class="flex justify-stretch w-full">
+          <app-button preset="full blue t1" (onClick)="openReview()" class="w-full text-center">
+            смотреть обзор
+          </app-button>
         </div>
       }
+
+      <div class="text-center mt-4 mb-4 font-main font-bold">{{ submission()!.date }}</div>
+
+      <div class="p-4 flex flex-wrap justify-center w-full">
+        @for (tag of submission()!.tags; track $index) {
+          <div class="bg-blue-600 text-white font-main text-sm md:text-xl px-2 mx-1 mb-2 font-bold border-3 border-blue-600">
+            {{ tag }}
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="text-center font-main text-3xl text-blue-600 py-10">Загрузка...</div>
+    }
+
+    <div class="flex justify-center w-full pt-3 pb-3">
+      <app-button routeLink="/home" preset="full bluealt2 t3" class="w-full"> Обратно </app-button>
     </div>
-  } @else {
-    <div class="text-center font-main text-3xl text-blue-600 py-10">Загрузка...</div>
-  }
-</app-block>
+  </app-block>
+
+
+</div>

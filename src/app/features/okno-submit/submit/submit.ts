@@ -36,7 +36,7 @@ export class Submit {
   name = new FormControl('');
   link = new FormControl('');
   additionalInfo = new FormControl('');
-  contacts = new FormControl('');
+  author = new FormControl('');
   tags:string[] = [];
 
   availableTags = computed(() => this.data().tags as TagInfo[]);
@@ -64,13 +64,13 @@ export class Submit {
     if (this.name.value != null &&
         this.link.value != null &&
         this.additionalInfo.value != null &&
-        this.contacts.value != null) {
+        this.author.value != null) {
 
       let payload: SubmitPayload = {
         name : this.name.value,
         link : this.link.value,
         additionalInfo : this.additionalInfo.value,
-        contact: this.contacts.value,
+        author: this.author.value,
         tags: this.tags
       };
 

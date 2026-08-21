@@ -1,49 +1,23 @@
 import { Component, Inject, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { Button } from '../../shared/components/button/button';
 import { Block } from '../../shared/components/block/block';
-import { interval, map, Observable } from 'rxjs'
 import { DOCUMENT } from '@angular/common';
 import { SubmitService } from '../../core/services/submit-service';
 import { SubmitInfo } from '../../core/models/submit.model';
+import { SubmissionsLine } from '../okno-submit/submissions-line/submissions-line';
 
 @Component({
   selector: 'app-home',
-  imports: [Button, Block, RouterLink],
+  imports: [Button, Block, SubmissionsLine],
   templateUrl: './home.html',
-  styles: [`
-    .marquee-content {
-      animation: marquee 30s linear infinite;
-    }
-    .marquee-paused {
-      animation-play-state: paused;
-    }
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-  `],
+  styles: [],
 })
 export class Home {
   targetDate = new Date('2026-08-07T23:00:00').getTime();
 
   private submitService = inject(SubmitService);
-  bestSubmissions = signal<SubmitInfo[]>([]);
-  marqueePaused = false;
 
-    timeLeft$: Observable<string> = interval(1000).pipe(
-      map(() => {
-        const diff = this.targetDate - Date.now();
-        if (diff <= 0) return 'Expired';
-
-        const days = Math.floor((diff / (1000 * 60 * 60 * 24)));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
-
-        return `${days}д ${hours}ч ${minutes}м ${seconds}с`;
-      })
-    );
+  submissionsLine = signal<SubmitInfo[]>([]);
 
   constructor(@Inject(DOCUMENT) private document: Document) {}
   ngOnInit() {
@@ -58,7 +32,7 @@ export class Home {
         return new Date(y2, m2 - 1, d2).getTime() - new Date(y1, m1 - 1, d1).getTime();
       });
 
-      this.bestSubmissions.set(sorted.slice(0, 10));
+      this.submissionsLine.set(sorted.slice(0, 20));
     });
   }
 

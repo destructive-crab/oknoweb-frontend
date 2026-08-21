@@ -2,8 +2,12 @@
 <div class="block justify-center mbe-2 mbs-2 md:mbe-5 md:mbs-5">
   <div class="border-10 3xl:border-20 border-blue-700 border-double bg-white w-full px-4 sm:px-6 lg:px-8">
 
-    <div class="font-main text-[44px] leading-8 text-center md:text-4xl text-[#000555] mt-5 mb-7">
+    <div class="font-main text-[44px] leading-8 text-center md:text-4xl text-[#000555] mt-5">
       <h2><b> {{ this.submitInfo.name }}</b></h2>
+    </div>
+
+    <div class="font-main text-[20px] leading-8 text-center md:text-2xl text-[#000555] mt-1 mb-7">
+      <h2><b> by {{ this.submitInfo.author }}</b></h2>
     </div>
 
     <div class="font-main leading-7 text-2xl text-balance md:text-center md:text-2xl text-[#000555] break-all mb-5">
@@ -15,21 +19,6 @@
     >
       <a href="{{this.submitInfo.link}}" target="_blank"><b> {{ this.submitInfo.link }} </b></a>
     </div>
-
-    @if(submitInfo.rating > -1) {
-      <div class="flex items-center justify-center mt-5 mb-5">
-        <span class="font-main text-4xl text-blue-600 font-bold">{{ this.submitInfo.rating }}/10</span>
-      </div>
-    }
-
-    @if (this.submitInfo.status == 'reviewed') {
-    <br />
-    <div class="flex justify-stretch w-full">
-      <app-button preset="full blue t1" (onClick)="openReview()" class="w-full text-center">
-        смотреть обзор
-      </app-button>
-    </div>
-    }
 
     <div class="text-center mt-4 mb-4 font-main font-bold">{{this.submitInfo.date}}</div>
 
