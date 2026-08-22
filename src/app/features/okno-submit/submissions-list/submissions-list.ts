@@ -45,6 +45,7 @@ export class SubmissionsList {
     this.filter();
   }
   filter() {
+    console.log("filtering")
     this.filteredSubmissions = this.submissions.filter((item) =>
       (item.name.toLowerCase().includes(this.filterText.toLowerCase()) || this.filterText === '') && (this.selectedTags.length == 0 || this.hasSelectedTags(item)),
     );
@@ -63,7 +64,7 @@ export class SubmissionsList {
     let counter = 0;
     for (const tag of this.selectedTags)
     {
-      if (submit.tags.includes(tag))
+      if (submit.tags != null && submit.tags.includes(tag))
       {
         counter++;
       }
