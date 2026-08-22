@@ -33,6 +33,7 @@ export class PanelSubmitCard {
   }
 
   onTagsChanged(tags: string[]):void {
+    console.log(tags);
     this.editTags = tags;
   }
 

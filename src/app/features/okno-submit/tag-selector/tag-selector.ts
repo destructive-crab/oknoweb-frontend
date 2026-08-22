@@ -38,6 +38,8 @@ export class TagSelector {
         .getCategoriesNotPanelOnly()
         .subscribe(categories => this.addCategories(categories));
     }
+
+    this.tagsChanged.emit(Array.from(this.selectedTags));
   }
 
   addCategories(categories: TagCategoryInfo[]) {
