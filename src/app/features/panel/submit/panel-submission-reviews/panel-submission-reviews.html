@@ -1,0 +1,20 @@
+@for(review of reviews; track $index) {
+  <div class="mt-2 justify-center flex">
+    <div class="flex w-full">
+      <app-button [link]="review.link" preset="full t2 bluealt2" class="w-full">
+        <div class="mx-4"> обзор от {{review.author}} </div>
+      </app-button>
+      <div class="text-4xl font-main px-4 font-bold">
+        {{review.rating}}/10
+      </div>
+      <app-button (onClick)="deleteReview(review.id)" preset="full t2 pink">
+        <div class="mx-2 font-bold font-main">
+          -
+        </div>
+      </app-button>
+    </div>
+  </div>
+}
+<div class="mt-2">
+  <app-panel-submission-review-creator [submission]="submission!" (created)="loadReviews()"></app-panel-submission-review-creator>
+</div>

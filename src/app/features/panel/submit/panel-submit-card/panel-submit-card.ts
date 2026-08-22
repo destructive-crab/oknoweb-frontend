@@ -4,10 +4,11 @@ import { Button } from '../../../../shared/components/button/button';
 import { TagSelector } from '../../../okno-submit/tag-selector/tag-selector';
 import { PanelService } from '../../../../core/services/panel-service';
 import { PrivateSubmitInfo, SubmissionEditPayload } from '../../../../core/models/submit.model';
+import { PanelSubmissionReviews } from '../panel-submission-reviews/panel-submission-reviews';
 
 @Component({
   selector: 'app-panel-submit-card',
-  imports: [Button, ReactiveFormsModule, TagSelector],
+  imports: [Button, ReactiveFormsModule, TagSelector, PanelSubmissionReviews],
   templateUrl: './panel-submit-card.html',
 })
 export class PanelSubmitCard {
@@ -16,10 +17,6 @@ export class PanelSubmitCard {
 
   editMode: boolean = false;
 
-  reviewLink = new FormControl("");
-  rating = new FormControl<number | null>(null);
-
-  editReview = new FormControl("");
   editName = new FormControl("");
   editLink = new FormControl("");
   editAdditionalInfo = new FormControl("");
@@ -74,17 +71,5 @@ export class PanelSubmitCard {
 
   discardChanges() {
     this.editMode = false;
-  }
-
-  postReviewLink()
-  {
-    if (this.reviewLink.value != null) {
-      this.panelService.postReviewLink(this.submission.id, this.reviewLink.value).subscribe(r => console.log(r));
-    }
-  }
-
-  postRating()
-  {
-    const value = this.rating.value ?? -1;
   }
 }

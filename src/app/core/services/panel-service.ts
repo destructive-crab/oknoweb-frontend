@@ -1,7 +1,7 @@
 import { Observable, from, switchMap } from "rxjs"
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { PrivateSubmitInfo, SubmissionEditPayload, TagCategoryInfo, TagInfo } from "../models/submit.model";
+import { PrivateSubmitInfo, SubmissionEditPayload, SubmissionReview, TagCategoryInfo, TagInfo } from "../models/submit.model";
 
 @Injectable({
   providedIn: 'root'
@@ -47,10 +47,16 @@ export class PanelService {
     return this.http.post(this.apiUrl + "/submissions/" + submissionId + "/pend", null, { headers: this.authHeadersFromStorage() });
   }
 
-  postReviewLink(submissionId:string , reviewLink:string) : Observable<Object>
+  postReview(submissionId: string, review:object)
   {
     return this.http
-      .post(this.apiUrl + "/submissions/" + submissionId + "/review", { reviewLink: reviewLink } , { headers: this.authHeadersFromStorage() });
+      .post(this.apiUrl + "/submissions/" + submissionId + "/reviews", review, { headers: this.authHeadersFromStorage() });
+  }
+
+  deleteReview(submissionId: string, reviewId:number)
+  {
+    return this.http
+      .post(this.apiUrl + "/submissions/" + submissionId + "/reviews/" + reviewId + "/delete", null, { headers: this.authHeadersFromStorage() });
   }
 
   editSubmission(submissionId:string , payload:SubmissionEditPayload) : Observable<Object>
