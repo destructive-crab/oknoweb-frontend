@@ -80,15 +80,6 @@ export class PanelSubmit extends PanelPage {
         this._error = 'Ошибка загрузки заявок (' + e.message + ')';
         this._loading.set(false);
       });
-
-    if (this._unverified.length == 0)
-    {
-      this.openVerified();
-    }
-    else
-    {
-      this.openPending();
-    }
   }
 
   private updateUrl() {

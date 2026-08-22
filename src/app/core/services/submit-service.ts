@@ -18,7 +18,7 @@ export class SubmitService {
 
   getReviews(id: string): Observable<SubmissionReview[]>
   {
-    return this.http.get<SubmissionReview[]>(this.apiUrl+"submissions/"+id+"/reviews");
+    return this.http.get<SubmissionReview[]>(this.apiUrl+"/submissions/"+id+"/reviews");
   }
 
   getSubmissions(): Observable<SubmitInfo[]>
