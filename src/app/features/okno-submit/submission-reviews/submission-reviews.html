@@ -4,9 +4,11 @@
       <app-button [link]="review.link" preset="full t2 bluealt2" class="w-full">
         <div class="mx-4"> обзор от {{review.author}} </div>
       </app-button>
-      <div class="text-4xl font-main pl-4 font-bold">
-        {{review.rating}}/10
-      </div>
+      @if (review.rating > -1) {
+        <div class="text-4xl font-main pl-4 font-bold">
+          {{review.rating}}/10
+        </div>
+      }
     </div>
   </div>
 }
