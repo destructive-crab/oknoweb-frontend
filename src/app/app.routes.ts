@@ -1,6 +1,6 @@
 import type { Routes } from '@angular/router';
 import { Home } from './features/home/home';
-import { Submissions, submissionsListResolver } from './features/okno-submit/submissions/submissions'
+import { Submissions } from './features/okno-submit/submissions/submissions'
 import { Submit, tagsResolver } from './features/okno-submit/submit/submit';
 import { SubmitSuccess } from './features/okno-submit/submit-success/submit-success';
 import { SubmissionPage } from './features/okno-submit/submission-page/submission-page';
@@ -23,9 +23,6 @@ export const routes: Routes = [
   {
     path: 'submissions',
     component: Submissions,
-    resolve: {
-      submissions: submissionsListResolver
-    },
   },
   {
     path: 'submissions/:id',

@@ -1,9 +1,8 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { Component, Inject, PLATFORM_ID, type Signal, computed, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import type { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { Block } from '../../../shared/components/block/block';
 import { Button } from '../../../shared/components/button/button';
 import type { SubmitInfo } from '../../../core/models/submit.model';
@@ -15,34 +14,18 @@ export enum SortingType {
   NewOld,
 }
 
-export const submissionsListResolver: ResolveFn<SubmitInfo[]> = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot,
-) => {
-  const submitService = inject(SubmitService);
-  return submitService.getSubmissions();
-};
-
-// <- crutch whose purpose is suppress compilation error by converting ActivatedRoute data into a predictable format
-interface RouteData {
-  submissions: SubmitInfo[];
-}
-
 @Component({
   imports: [FormsModule, SubmissionsList, Button, Block, RouterModule, CommonModule],
   selector: 'app-submissions',
   templateUrl: './submissions.html',
 })
 export class Submissions {
-  // private http = inject(HttpClient);
-
-  private route: ActivatedRoute = inject(ActivatedRoute);
-  private data = toSignal(this.route.data) as Signal<RouteData>;
-  submissions = computed(() => (this.data()?.submissions as SubmitInfo[]) ?? {});
-  // submissions = signal({} as SubmitInfo[]);
+  private _submissions: SubmitInfo[] | null = null;
+  submissions = computed(() => (this._submissions ?? []));
 
   public pending: boolean = true;
-  // public submissionsCountPrerequest = signal(0);
+
+  private submitService = inject(SubmitService);
 
   openPending() {
     this.pending = true;
@@ -58,10 +41,7 @@ export class Submissions {
     this.document.body.classList.add('bg-[url(/bgmelted.png)]');
     this.document.body.classList.add('bg-repeat');
 
-    // this.http.get<SubmitInfo[]>('/submit/api/submissions').subscribe((data: SubmitInfo[]) => {
-    //   this.submissions = data;
-    //   this.submissionsCountPrerequest.set(data.length);
-    // });
+    this.submitService.getSubmissions().subscribe((s) => this._submissions = s);
   }
 
   ngOnDestroy() {

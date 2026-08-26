@@ -36,6 +36,16 @@ export class SubmitService {
     return this.http.get<SubmitInfo>(this.apiUrl + "/submissions/" + id);
   }
 
+  getSubmissionHorizontalCover(id: string): Observable<Blob>
+  {
+    return this.http.get(this.apiUrl + "/submissions/" + id + "/cover_horizontal", { responseType: 'blob' } );
+  }
+
+  getSubmissionVerticalCover(id: string): Observable<Blob>
+  {
+    return this.http.get(this.apiUrl + "/submissions/" + id + "/cover_vertical", { responseType: 'blob' } );
+  }
+
   getCategories(): Observable<TagCategoryInfo[]>
   {
     return this.http.get<TagCategoryInfo[]>(this.apiUrl + "/tags/categories");

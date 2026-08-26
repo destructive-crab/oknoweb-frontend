@@ -24,6 +24,7 @@ export interface SubmitInfo {
   additionalInfo: string;
   tags: string[];
   date: string;
+  coverImage: string;
 }
 
 export interface PrivateSubmitInfo {
@@ -35,6 +36,7 @@ export interface PrivateSubmitInfo {
   additionalInfo: string;
   tags: string[];
   date: string;
+  coverImage: string;
 }
 
 export interface TagInfo {

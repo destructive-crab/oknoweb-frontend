@@ -45,7 +45,6 @@ export class SubmissionsList {
     this.filter();
   }
   filter() {
-    console.log("filtering")
     this.filteredSubmissions = this.submissions.filter((item) =>
       (item.name.toLowerCase().includes(this.filterText.toLowerCase()) || this.filterText === '') && (this.selectedTags.length == 0 || this.hasSelectedTags(item)),
     );
