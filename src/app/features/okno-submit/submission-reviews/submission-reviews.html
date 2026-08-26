@@ -1,8 +1,8 @@
 @for(review of reviews; track $index) {
   <div class="mt-2 justify-center flex">
-    <div class="flex w-1/2">
-      <app-button [link]="review.link" preset="full t2 bluealt2" class="w-full">
-        <div class="mx-4"> обзор от {{review.author}} </div>
+    <div class="flex w-[95%]">
+      <app-button [link]="review.link" preset="full t1 bluealt2" class="w-full">
+        <div class="mx-1 w-full"> обзор от {{review.author}} </div>
       </app-button>
       @if (review.rating > -1) {
         <div class="text-4xl font-main pl-4 font-bold">
