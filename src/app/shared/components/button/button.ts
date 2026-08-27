@@ -47,6 +47,10 @@ export class Button {
             'bg-white hover:bg-pink-500 text-pink-500 hover:text-white border-4 border-b-8 border-r-8 border-pink-500';
           break;
 
+        case 'pinkalt3':
+          this.color =
+            'bg-pink-500 hover:bg-pink-600 text-white border-4 border-b-8 border-r-8 border-pink-500 hover:border-pink-600';
+          break;
         case 'blue':
           this.color =
             'font-bold bg-white text-blue-700 border-4 border-b-8 border-r-8 3xl:border-8 3xl:border-b-12 border-blue-700 hover:bg-blue-700 hover:text-white active:text-white active:bg-blue-800 active:border-blue-800';
