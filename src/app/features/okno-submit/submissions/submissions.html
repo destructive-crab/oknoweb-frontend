@@ -1,21 +1,21 @@
 <link href="https://www.nerdfonts.com/assets/css/webfont.css" rel="stylesheet" />
-    <app-block>
-      <app-button
-        class="absolute w-auto -ml-4 mt-2 sm:-ml-2 md:-ml-4 xl:-ml-4 xl:mt-4"
-        routeLink="/home"
-        pX="0"
-        customProperties="w-auto"
-      >
-        <i class="nf fa nf-fa-arrow_left text-4xl text-blue-700 inline hover:text-pink-500 p-1.5"></i>
-      </app-button>
+<app-block>
+  <app-button
+    class="absolute w-auto -ml-4 mt-2 sm:-ml-2 md:-ml-4 xl:-ml-4 xl:mt-4"
+      routeLink="/home"
+      pX="0"
+      customProperties="w-auto"
+    >
+    <i class="nf fa nf-fa-arrow_left text-4xl text-blue-700 inline hover:text-pink-500 p-1.5"></i>
+  </app-button>
 
-      <div class="w-full flex justify-center">
-        <img
-          class="h-38 md:h-80 object-contain object-center"
-          src="okno_submit.png"
-          alt="OKNO*SUBMIT"
-        />
-      </div>
+  <div class="w-full flex justify-center">
+    <img
+      class="h-38 md:h-80 object-contain object-center"
+      src="okno_submit.png"
+      alt="OKNO*SUBMIT"
+    />
+    </div>
       <div class="font-main text-2xl text-center font-bold">
         <p class="mt-2 mb-2">
           OknoSubmit - это сервис для разработчиков игр и игроков. Мы помогаем малоизвестным авторам
@@ -54,13 +54,13 @@
       </div>
 
       <br />
-    </app-block>
+</app-block>
 
-  <app-block color="pink-400" bg-color="alpha">
-    <app-submissions-list
-      [submissions]="submissions()"
-      [label]="submissions().length.toString()"
-      label="reviewed"
-      class="w-full"
+<app-block color="pink-400" bg-color="alpha">
+  <app-submissions-list
+    [submissions]="submissions()"
+    label="label"
+    label="reviewed"
+    class="w-full"
     ></app-submissions-list>
-  </app-block>
+</app-block>

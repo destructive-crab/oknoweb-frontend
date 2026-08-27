@@ -4,16 +4,17 @@
   <div class="font-main text-[#000555] text-center font-bold mb-5 mt-5">
     <p class="text-5xl md:text-7xl">Поздравляем!</p>
     <br />
-    <p class="text-3xl md:text-5xl">
-      Ваша заявка уже у нас.
+    <p class="text-4xl md:text-5xl">
+      Сабмит уже у нас.
       <br />
-      Она стала {{this.id}}-ой заявкой на OknoSubmit!
+    </p>
+    <p>
     </p>
 
     <br />
-    <p class="text-2xl md:text-4xl">
+    <p class="text-2xl md:text-4xl pb-4">
+      Он стал {{this.id}}-ой заявкой на OknoSubmit!
       Как только мы одобрим сабмит, он появится
-
       <a
         class="text-pink-500 hover:cursor-pointer hover:text-pink-400"
         routerLink="/submissions"
@@ -21,28 +22,30 @@
         >здесь</a
       >
     </p>
-    <br />
-    <p class="text-2xl md:text-4xl">
-      Заявки рассматриваются в рамках выпусков Submit Review на
-      <a
-        class="text-pink-500 hover:cursor-pointer hover:text-pink-400"
-        href="https://boosty.to/oknoboosty"
-        target="_blank"
-        >Boosty</a
-      >.
+    <hr />
+    <div class="text-2xl md:text-4xl pt-4 pb-4">
+      Принятые сабмиты участвуют в рулетке на стримах по OknoSubmit.
+      <br>
+      А также на сабмиты снимают обзоры люди из нашего комьюнити.
+      <br>
+      Весь контент по сабмиту прикрепляется к его карточке.
       <br />
-      Если мы примем вашу игру, она будет участвовать в рулетке стримов с обзорами игр с OknoSubmit.
 
-      <br />
-      Чтобы не пропустить контент, связанный с вашей игрок, подпишитесь на наш
+    </div>
+
+    <hr>
+    <div class="text-2xl md:text-4xl pt-4">
+
+      Все уведомления о стримах, контенте сообщества здесь
+      <br>
       <a
         class="text-pink-500 hover:cursor-pointer hover:text-pink-400"
         href="https://telegram.me/oknogmdv"
         target="_blank"
-        >тг-канал
+        >t.me/oknogmdv
       </a>
-      - там мы уведомляем о стримах и всем контенте, что выходит на наших каналах
-    </p>
+    </div>
+
     <br />
 
     <app-button preset="full pinkalt2 t2" routeLink="/home">на главную</app-button>

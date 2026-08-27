@@ -1,7 +1,6 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { Component, Inject, PLATFORM_ID, type Signal, computed, inject } from '@angular/core';
+import { Component, Inject, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import type { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { Block } from '../../../shared/components/block/block';
 import { Button } from '../../../shared/components/button/button';
@@ -20,8 +19,8 @@ export enum SortingType {
   templateUrl: './submissions.html',
 })
 export class Submissions {
-  private _submissions: SubmitInfo[] | null = null;
-  submissions = computed(() => (this._submissions ?? []));
+  private _submissions = signal<SubmitInfo[]>([]);
+  readonly submissions = this._submissions.asReadonly();
 
   public pending: boolean = true;
 
@@ -34,14 +33,14 @@ export class Submissions {
     this.pending = false;
   }
 
-  constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(@Inject(DOCUMENT) private document: Document) {}
 
   ngOnInit() {
     this.document.body.classList.add('min-h-screen');
     this.document.body.classList.add('bg-[url(/bgmelted.png)]');
     this.document.body.classList.add('bg-repeat');
 
-    this.submitService.getSubmissions().subscribe((s) => this._submissions = s);
+    this.submitService.getSubmissions().subscribe((s) => this._submissions.set(s));
   }
 
   ngOnDestroy() {
