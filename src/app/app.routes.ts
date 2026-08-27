@@ -8,11 +8,15 @@ import { PanelLogin } from './features/panel/panel-login/panel-login';
 import { PanelRoot } from './features/panel/panel-root/panel-root';
 import { PanelSubmit } from './features/panel/submit/panel-submit/panel-submit';
 import { PanelSubmitTags } from './features/panel/submit/panel-submit-tags/panel-submit-tags';
+import { Manifest } from './manifest/manifest';
+import { ManifestPrelude } from './manifest-prelude/manifest-prelude';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
   { path: 'home', component: Home },
+  { path: 'manifest-prelude', component: ManifestPrelude },
+  { path: 'manifest', component: Manifest },
   {
     path: 'submit',
     component: Submit,

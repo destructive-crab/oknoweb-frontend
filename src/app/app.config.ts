@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
 import { routes } from './app.routes';
@@ -8,12 +8,13 @@ import { provideClientHydration, withHttpTransferCacheOptions } from '@angular/p
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes), provideClientHydration(),
+    provideRouter(routes, withInMemoryScrolling({ anchorScrolling: 'enabled' })),
+    provideClientHydration(),
     provideHttpClient(withFetch()),
     provideClientHydration(
       withHttpTransferCacheOptions({
         filter: (req) => !req.url.includes('submit/api'),
       })
-    )
+    ),
   ]
 };
